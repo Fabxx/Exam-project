@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include "../include/libraries.h"
+#include "../include/ui.h"
 
-int main()
-{
-	printf("Hello World!\n");
+int main(void) {
 
+	ui();
+	system("pause");
 	return (0);
 }

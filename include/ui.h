@@ -1,6 +1,7 @@
 #ifndef UI_H_INCLUDED
 #define UI_H_INCLUDED
 
+void ui();
 void ui_mode_selection();
 void ui_creator();
 void ui_user();

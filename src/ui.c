@@ -1,5 +1,9 @@
 #include "../include/libraries.h"
 
+void ui(){
+     ui_mode_selection();
+}
+
 void ui_mode_selection() {
 
     puts("\t\t\t\t\t|-----Image Hosting System-----|\n"

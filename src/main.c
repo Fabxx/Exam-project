@@ -3,7 +3,7 @@
 
 int main(void) {
 
-	ui();
+	ui_mode_selection();
 	system("pause");
 	return (0);
 }

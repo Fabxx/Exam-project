@@ -6,4 +6,4 @@ void ui_options_display();
 void ui_options_display_creator();
 void ui_options_display_user();
 
-#endif // !UI_H_INCLUDED
+#endif //UI_H_INCLUDED

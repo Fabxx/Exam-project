@@ -10,26 +10,28 @@ void ui_mode_selection() {
          "2)Creator\n");
 }
 
-void ui_options_display_creator() {
+
+
+void ui_creator() {
 
     puts("Select the desired option\n"
-         "1)Create an image\n"
-         "2)Upload an image\n"
-         "3)View rating on image\n");
+         
+         "1)Upload an image\n"
+         "2)View uploaded images\n");
 
 }
 
-void ui_options_display_user() {
+void ui_creator_image_options(){
+     puts("Select the desired option\n"
+          "1) Return to main menu\n"
+          "2) Edit image information\n"
+          "3) Remove image");
+}
+
+void ui_user() {
 
     puts("Select the desired option\n"
-         "1)Search for an image\n");
+         "1)Search for an image\n"
+         "2)List most downloaded");
         
-         /**
-          * @Queste due opzioni devono 
-          * essere spostate per quando 
-          * l'utente deciderà di cercare
-          * un'immagine.
-          * "2)Download an image\n"
-          * "3)rate a image\n"
-          */
 }

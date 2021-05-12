@@ -1,4 +1,4 @@
-#include "libraries.h"
+#include "../include/libraries.h"
 
 #ifndef STRUCT_H_INCLUDED
 #define STRUCT_H_INCLUDED
@@ -9,14 +9,13 @@ typedef struct {
     char profession[ID_LENGHT];
     int type; //1 if creator
 
-
 } user;
 
 typedef struct {
 
-    char file_type[];
-    char file_name[];
-    char keywords[25][5]; //25 = lunghezza parole, 5 n parole.
+    char file_type[]; //usata per l'estensione
+    char file_name[]; //usata per il nome
+    char keywords[KEY_LENGHT][KEYS]; //KEY_LENGHT = lunghezza parole, KEYS n parole.
     float vote;
     int downloads;
     char creator[ID_LENGHT];

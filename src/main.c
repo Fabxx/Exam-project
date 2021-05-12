@@ -3,7 +3,7 @@
 
 int main(void) {
 
-	ui();
+	ui_login();
 	system("pause");
 	return (0);
 }

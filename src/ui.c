@@ -1,6 +1,7 @@
+
 #include "../include/libraries.h"
 
-void ui(){
+void ui_login() {
      
     puts("\t\t\t\t\t|-----Image Hosting System-----|\n"
          "\t\t\t\t\t|---------- v1.0 --------------|\n");
@@ -9,10 +10,6 @@ void ui(){
          "1)User\n"
          "2)Creator\n");
 }
-
-
-
-
 
 void ui_creator() {
 
@@ -23,7 +20,7 @@ void ui_creator() {
 
 }
 
-void ui_creator_image_options(){
+void ui_creator_image_options() {
      puts("Select the desired option\n"
           "1) Return to main menu\n"
           "2) Edit image information\n"

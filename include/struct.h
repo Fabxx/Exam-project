@@ -1,3 +1,29 @@
+/**
+ * @file struct.h
+ * @author Fabio Spiriticchio - Sergio Mari
+ * @brief Questra libreria dispone delle strutture dati che permettono di memorizzare i dati utente
+ *        e i dati che riguardano gli attributi dei file:
+ *         
+ *        1)User struct, per i dettagli utente tra cui:
+ *          -Nome utente
+ *          -Professione
+ *          -Tipo di utente, se creatore o utilizzatore. Assume valore 0 se utilizzatore, 1 se creatore.
+ *        2)Image struct, per gli attributi dei file, tra cui:
+ *          -Tipo del file (png, jpeg, ecc)
+ *          -Nome del file
+ *          -Parole chiave utilizzate per la ricerca delle immagini
+ *          -Voti per la valutazione
+ *          -Numero di download effettuati su un'immagine
+ *          -Autore del file.
+ * @version 0.1
+ * @date 2021-05-12
+ * 
+ * @copyright None
+ * 
+ */
+
+
+
 #include "libraries.h"
 
 #ifndef STRUCT_H_INCLUDED
@@ -7,7 +33,7 @@ typedef struct {
 
     char username[ID_LENGHT];
     char profession[ID_LENGHT];
-    int type; //1 if creator
+    int type; 
 
 } user;
 

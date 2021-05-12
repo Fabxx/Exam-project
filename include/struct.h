@@ -18,7 +18,7 @@
  * @version 0.1
  * @date 2021-05-12
  * 
- * @copyright None
+ * @copyright Copyright (c) 2021
  * 
  */
 

@@ -2,7 +2,14 @@
  * @file libraries.h
  * @author Fabio Spiriticchio - Sergio Mari
  * @brief Libreria utilizzata come raccolta di costanti e librerie standard per lo sviluppo del 
- *        sorgente.
+ *        sorgente. Le seguenti costanti rappresentano:
+ *        1)Lunghezza del username
+ *        2)Lunghezza massima della singola parola chiave
+ *        3)Numero di parole chiavi
+ *        4)Lunghezza del nome del file
+ *        5)Lunghezza del titolo di ricerca
+ *        6)Lunghezza per descrivere il tipo di file.
+ *        
  * @version 0.1
  * @date 2021-05-12
  * 

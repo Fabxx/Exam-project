@@ -47,6 +47,5 @@ typedef struct {
     
 } image;
 
-
 #endif //STRUCT_H_INCLUDED
 

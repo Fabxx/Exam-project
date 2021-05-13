@@ -12,7 +12,6 @@ void makefile() {
 
 }
 
-
 void account_creation(user s) {
 
     FILE *fileptr;

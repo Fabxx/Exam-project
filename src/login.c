@@ -1,33 +1,41 @@
 #include "../include/libraries.h"
 #include "../include/struct.h"
 
-void makefile() {
-
-    FILE *fileptr;
-    fileptr = fopen("account.dat", "w+");
-    if (fileptr == NULL) {
-        puts("File not created, aborting...\n");
-        exit(1);
-    }
-
-}
-
 void account_creation(user s) {
 
     FILE *fileptr;
+    int exit = 0;
+
     fileptr = fopen("account.dat", "r+");
     
-    puts("Insert your username\n");
-    gets(s.username);
-    puts("Confirm username\n");
-    gets(s.username_confirm);
+    while(exit == 0){
+        puts("Insert your username: \n");
+        gets(s.username);
+        puts("Confirm username: \n");
+        gets(s.username_confirm);
+        
+        if(strcmp(s.username, s.username_confirm) == 0) {
 
-    if(strcmp(s.username, s.username_confirm) == 0) {
-        puts("Account created\n");
-        fprintf(fileptr, "Username:%s\n", s.username);
-    } else {
-            puts("Username is wrong form previous one, retry.\n");
-            account_creation(s); 
+            if(!userExists(s,fileptr)){ //Check if username doesn't exist
+                puts("Insert your job: \n");
+                gets(s.job);
+                puts("Account created\n");
+                s.type = 1; //Set user type to Creator
+
+                fwrite(&s, sizeof(user), 1, fileptr);
+
+            } else{
+                puts("This username is already in use.\n");
+                rewind(fileptr);
+            }
+                    
+        } else {
+            puts("Username is wrong form previous one.\n");
+            rewind(fileptr);
+            
+        }
     }
+    
 
+    fclose(fileptr);
 }

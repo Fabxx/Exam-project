@@ -27,7 +27,7 @@ void account_creation(user s) {
         fprintf(fileptr, "Username:%s\n", s.username);
     } else {
             puts("Username is wrong form previous one, retry.\n");
-            account_creation(); 
+            account_creation(s); 
     }
 
 }

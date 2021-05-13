@@ -11,11 +11,15 @@
  */
 
 
-#ifdef LIBRARIES_H_INCLUDED
+#ifndef LIBRARIES_H_INCLUDED
 #define LIBRARIES_H_INCLUDED
 #define ID_LENGHT 30
 #define KEY_LENGHT 15
 #define KEYS 10
+#define NAME_SIZE 20
+#define TITLE_SIZE 40
+#define F_TYPE 10
+
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -38,8 +38,9 @@ typedef struct {
 
 typedef struct {
 
-    char file_type[]; 
-    char file_name[]; 
+    char title[TITLE_SIZE];
+    char file_type[F_TYPE]; 
+    char file_name[NAME_SIZE]; 
     char keywords[KEY_LENGHT][KEYS]; //KEY_LENGHT = lunghezza parole, KEYS n parole.
     float vote;
     int downloads;

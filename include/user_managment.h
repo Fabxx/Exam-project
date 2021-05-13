@@ -1,7 +1,8 @@
 /**
  * @file user_managment.h
- * @author your name (you@domain.com)
- * @brief 
+ * @author Fabio Spiriticchio - Sergio Mari
+ * @brief Questa funzione permette di poter effettuare una verifica sul file, per poter verificare se 
+ *        lo username inserito è già esistente o meno alla creazione dell'account.
  * @version 0.1
  * @date 2021-05-13
  * 

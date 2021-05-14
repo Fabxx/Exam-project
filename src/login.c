@@ -26,7 +26,7 @@ void account_creation() {
                 puts("Insert your job: \n");
                 gets(s[i].job);
                 puts("Account created. You can now login.\n");
-                s[i].type = i;
+                s[i].type = i % 2;
 
                 fwrite(&s, sizeof(user), 1, fileptr);
 
@@ -60,10 +60,19 @@ user account_access(int type, user s[]) {
          if (fread(&s[i], sizeof(user), 1, fileptr) == NULL) {
 
             puts("Username not found.\n");
+         } else {
+            printf("%d) %s - %s - ",i+1,s[i].username,s[i].job);
+            
+            if(s[i].type == 1) {
+                printf("Creator\n");
+            }
+                
+            else {
+                printf("User\n");
+            }
+                
          }
-            puts("Accounts were found, choose one of them from the list:\n"
-                "1)(nome dell'account da prendere dal file) - Creator\n"
-                "2 - user\n");
+            
      }
 
 }

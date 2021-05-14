@@ -1,28 +1,36 @@
 #include "../include/libraries.h"
 #include "../include/struct.h"
 
-void account_creation(user s) {
+void account_creation() {
+
+    user s[USERS];
 
     FILE *fileptr;
     int exit = 0;
+    int i;
 
     fileptr = fopen("account.dat", "r+");
-    
-    while(exit == 0){
-        puts("Insert your username: \n");
-        gets(s.username);
-        puts("Confirm username: \n");
-        gets(s.username_confirm);
-        
-        if(strcmp(s.username, s.username_confirm) == 0) {
 
-            if(!userExists(s,fileptr)){ //Check if username doesn't exist
+    for (i = 0; i < USERS; i++) {
+        
+        while(exit == 0) {
+        
+        puts("Insert username: \n");
+        gets(s[i].username);
+        puts("Confirm username: \n");
+        gets(s[i].username_confirm);
+        
+        if(strcmp(s[i].username, s[i].username_confirm) == 0) {
+
+            if(!userExists(s, fileptr)){ //Check if username doesn't exist
                 puts("Insert your job: \n");
-                gets(s.job);
-                puts("Account created\n");
-                s.type = 1; //Set user type to Creator
+                gets(s[i].job);
+                puts("Account created. You can now login.\n");
+                s[i].type = i;
 
                 fwrite(&s, sizeof(user), 1, fileptr);
+
+                exit = 1;
 
             } else{
                 puts("This username is already in use.\n");
@@ -35,7 +43,27 @@ void account_creation(user s) {
             
         }
     }
-    
-
+}
     fclose(fileptr);
+}
+
+user account_access(int type, user s[]) {
+
+    FILE *fileptr;
+    fileptr = fopen("account.dat", "r+");
+    int i;
+
+    puts("Insert your username\n");
+     
+     while(!feof(fileptr)) {
+
+         if (fread(&s[i], sizeof(user), 1, fileptr) == NULL) {
+
+            puts("Username not found.\n");
+         }
+            puts("Accounts were found, choose one of them from the list:\n"
+                "1)(nome dell'account da prendere dal file) - Creator\n"
+                "2 - user\n");
+     }
+
 }

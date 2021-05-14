@@ -20,7 +20,8 @@
 #ifndef UI_H_INCLUDED
 #define UI_H_INCLUDED
 
-void ui_login();
+void ui_main();
+void ui_mode_selection();
 void ui_creator();
 void ui_user();
 void ui_creator_image_options();

@@ -26,6 +26,7 @@
 #define NAME_SIZE 20
 #define TITLE_SIZE 40
 #define F_TYPE 10
+#define USERS 2
 
 
 #include <stdio.h>

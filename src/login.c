@@ -18,6 +18,7 @@
 #include "../include/libraries.h"
 #include "../include/struct.h"
 #include "../include/user_managment.h"
+#include "../include/ui.h"
 
 void account_creation() {
 
@@ -43,7 +44,7 @@ void account_creation() {
             if(!userExists(s, fileptr)){ //Check if username doesn't exist
                 puts("Insert your job: \n");
                 gets(s[i].job);
-                puts("Account created. You can now login.\n");
+                puts("Account created. You can now login. Returning to menu...\n");
                 s[i].type = i % 2;
 
                 fwrite(&s, sizeof(user), 1, fileptr);
@@ -65,7 +66,9 @@ void account_creation() {
     fclose(fileptr);
 }
 
-void account_access(user s[]) {
+void account_access() {
+
+    user s[USERS];
 
     FILE *fileptr;
     fileptr = fopen("account.dat", "r+");
@@ -78,6 +81,7 @@ void account_access(user s[]) {
          if (fread(&s[i], sizeof(user), 1, fileptr) == NULL) {
 
             puts("Username not found.\n");
+            ui_main();
          } else {
             printf("%d) %s - %s - ",i+1,s[i].username,s[i].job);
             

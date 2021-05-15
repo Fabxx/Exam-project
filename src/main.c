@@ -8,7 +8,6 @@
 int main(void) {
 
 	int choice = 1;
-	int mode = 0;
 
 	makeAccountsFile();
 
@@ -19,11 +18,14 @@ int main(void) {
 		
 		switch(choice) {
 			case 1: {
-				account_creation(mode);
+				account_creation();
+				system("cls");
 				break;
 			}
 			case 2: {
-				//...
+				account_access();
+				ui_creator();
+				
 				break;
 			}
 		}

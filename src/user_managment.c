@@ -15,6 +15,7 @@
 #include "../include/struct.h"
 
 int userExists(user s[], FILE* fileptr) {
+    
     int found = 0;
     user currentUser;
     int i = 0;

@@ -13,7 +13,7 @@
 #include "../include/libraries.h"
 #include "../include/struct.h"
 
-int imageFileInit(){
+int imageFileInit() {
     int success = 0;
     FILE* images;
     
@@ -27,36 +27,36 @@ int imageFileInit(){
     return success;
 }
 
-void writeImage(image newImage, FILE* dest){
+void writeImage(image newImage, FILE* dest) {
     fwrite(&newImage, sizeof(image), 1, dest);
 }
 
-image nextImage(FILE* source){
+image nextImage(FILE* source) {
     image data;
 
-    fread(&data, sizeof(image),1,source);
+    fread(&data, sizeof(image), 1, source);
     
     return data;
 }
 
-int imageCompare(image source1, image source2){
+int imageCompare(image source1, image source2) {
     int equals = 0;
     int i;
 
-    if(strcmp(source1.author, source2.author)){
+    if(strcmp(source1.author, source2.author) == 0) {
 
-        if(source1.downloads == source2.downloads){
+        if(source1.downloads == source2.downloads) {
 
-            if(strcmp(source1.file_name, source2.file_name)){
+            if(strcmp(source1.file_name, source2.file_name) == 0) {
 
-                if(strcmp(source1.file_type, source2.file_type)){
+                if(strcmp(source1.file_type, source2.file_type) == 0) {
 
                     if(source1.vote == source2.vote){
 
-                        if(strcmp(source1.title, source2.title)){
+                        if(strcmp(source1.title, source2.title) == 0) {
                             equals = 1;
                             for(i = 0; i < KEYS; i++){
-                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0){
+                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0) {
                                     equals = 0;
                                 }
                             }
@@ -89,9 +89,9 @@ void removeImage(image toRemove){
                 writeImage(currentImage, images); //Write next image to it
                 fseek(images, sizeof(image) * 2, SEEK_CUR); //Go to next image, we are poiting to the image we just removed so we need to skip the now duplicate entry
             }
-            //fseek(images, -sizeof(image), SEEK_END); //Go to last duplicate entry
-            //fwrite(NULL, sizeof(image), 1, images); //We need to find a better way to remove the last duplicate. 
-            success = 1;
+                fseek(images, -sizeof(image), SEEK_END); //Go to last duplicate entry
+                fwrite(NULL, sizeof(image), 1, images); //We need to find a better way to remove the last duplicate. 
+                success = 1;
         }
     }
 

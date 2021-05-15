@@ -13,8 +13,10 @@
 #ifndef LOGIN_H_INCLUDED
 #define LOGIN_H_INCLUDED
 
+#include "../include/struct.h"
+
 
 void account_creation();
-void account_access(int type, user s[]);
+void account_access();
 
 #endif //LOGIN_H_INCLUDED

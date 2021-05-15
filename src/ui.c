@@ -21,6 +21,13 @@ void ui_creator() {
          "2)View uploaded images\n");
 }
 
+void ui_mode_selection() {
+     
+    puts("Select the mode you want to use\n"
+         "1)User\n"
+         "2)Creator\n");
+}
+
 void ui_creator_image_options() {
      puts("Select the desired option\n"
           "1) Return to main menu\n"

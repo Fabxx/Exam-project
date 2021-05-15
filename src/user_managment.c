@@ -1,7 +1,8 @@
 /**
  * @file user_managment.c
  * @author Fabio Spiriticchio - Sergio Mari
- * @brief 
+ * @brief Questa funzione permette di verificare se mentre si sta creando un account, esso non esista già.
+ *        se esiste, ritornerà come valore found e account access mostrerà i relativi messaggi.
  * @version 0.1
  * @date 2021-05-15
  * 

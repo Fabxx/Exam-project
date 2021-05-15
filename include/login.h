@@ -14,7 +14,7 @@
 #define LOGIN_H_INCLUDED
 
 
-void account_creation(int);
-void account_access(int);
+void account_creation();
+void account_access(int type, user s[]);
 
 #endif //LOGIN_H_INCLUDED

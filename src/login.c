@@ -1,5 +1,23 @@
+/**
+ * @file login.c
+ * @author Fabio Spiriticchio - Sergio Mari
+ * @brief Queste funzioni permettono di poter creare un account e accedera ad un account già
+ *        esistente. Le funzionalità sono le seguenti:
+ *         -Account creation ancor prima di poter permettere di creare un account, verifica se lo
+ *          username inserito non esista già all'interno del file account.dat. In caso negativo, 
+ *          si procederà a far creare l'account. Per poter definire se un account è creatore o meno
+ *          ci si baserà sul valore indice del ciclo, se è pari sarà un account creatore, se dispari, 
+ *          sarà un account utente normale.
+ * @version 0.1
+ * @date 2021-05-15
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "../include/libraries.h"
 #include "../include/struct.h"
+#include "../include/user_managment.h"
 
 void account_creation() {
 
@@ -47,11 +65,11 @@ void account_creation() {
     fclose(fileptr);
 }
 
-user account_access(int type, user s[]) {
+void account_access(user s[]) {
 
     FILE *fileptr;
     fileptr = fopen("account.dat", "r+");
-    int i;
+    int i = 0;
 
     puts("Insert your username\n");
      

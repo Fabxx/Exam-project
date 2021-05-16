@@ -27,27 +27,31 @@ int imageFileInit() {
     return success;
 }
 
-void writeImage(image newImage[], FILE *fileptr) {
+void writeImage(image arr[], FILE *fileptr) {
 
     fileptr = fopen("images.bin", "a+b");
     
     int i;
 
     for(i=0; i<IMAGES; i++) {
-        fwrite(&newImage[i], sizeof(image), 1, fileptr);
+        fwrite(&arr[i].file_name, sizeof(image), 1, fileptr);
     }    
         fclose(fileptr);    
 }
 
-int nextImage(FILE* fileptr) {
+int nextImage() {
+
+    image arr[IMAGES];
+    FILE *fileptr;
+
+    int i;
 
     fileptr = fopen("images.bin", "a+b");
-    
-    int data;
 
-    fread(&data, sizeof(image), 1, fileptr);
+    fread(&arr[i].file_name, sizeof(image), 1, fileptr);
     fclose(fileptr);
-    return data;
+
+    return nextImage;
 }
 
 int imageCompare(image arr[]) {

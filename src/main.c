@@ -9,29 +9,10 @@
 
 int main(void) {
 
-	int choice = 0;
-
 	makeAccountsFile();
 	imageFileInit();
 
-		ui_main();
-		scanf("%d",&choice);
-		fflush(stdin);
-
-		switch(choice) {
-			case 1: {
-				account_creation();
-				break;
-			}
-			case 2: {
-				account_access();
-				
-				ui_creator();
-				ui_choices();
-
-				break;
-			}
-		}
+		
 		puts("Come back soon.\n");
 
 		return (0);

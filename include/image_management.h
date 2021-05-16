@@ -8,7 +8,7 @@ int imageFileInit();
 
 void writeImage(image, FILE*);
 void nextImage();
-void removeImage(image);
-int imageCompare(image, image);
+void removeImage();
+int imageCompare();
 
 #endif

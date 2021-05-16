@@ -27,7 +27,10 @@ int imageFileInit() {
     return success;
 }
 
-void writeImage(image arr[], FILE *fileptr) {
+void writeImage() {
+
+    image arr[IMAGES];
+    FILE *fileptr;
 
     fileptr = fopen("images.bin", "a+b");
     
@@ -39,7 +42,7 @@ void writeImage(image arr[], FILE *fileptr) {
         fclose(fileptr);    
 }
 
-int nextImage() {
+void nextImage() {
 
     image arr[IMAGES];
     FILE *fileptr;
@@ -51,7 +54,6 @@ int nextImage() {
     fread(&arr[i].file_name, sizeof(image), 1, fileptr);
     fclose(fileptr);
 
-    return nextImage;
 }
 
 int imageCompare() {
@@ -89,22 +91,21 @@ int imageCompare() {
     return equals;
 }
 
-void removeImage(int toRemove){
+void removeImage(){
     int success = 0;
     FILE* images;
-    int currentImage;
+    image arr[IMAGES];
+    int i;
 
-    images = fopen("images.bin","rb+");
+    images = fopen("images.bin","r+b");
 
-    while(!feof(images) && success == 0){
-        currentImage = nextImage(images);
+    while(!feof(images) && success == 0) {
 
-        if(imageCompare(toRemove) == 1){
+        if(imageCompare() == 1){
 
-            //I don't feel confident about this one.
-            while(!feof(images)){
+            while(!feof(images)) {
                 fseek(images, -sizeof(image), SEEK_CUR); //Return to position of image to be deleted, go back 1 image
-                writeImage(currentImage, images); //Write next image to it
+                writeImage(arr[i], images); //Write next image to it
                 fseek(images, sizeof(image) * 2, SEEK_CUR); //Go to next image, we are poiting to the image we just removed so we need to skip the now duplicate entry
             }
                 fseek(images, -sizeof(image), SEEK_END); //Go to last duplicate entry

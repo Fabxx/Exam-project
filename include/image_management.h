@@ -6,7 +6,7 @@
 
 int imageFileInit();
 
-void writeImage(image, FILE*);
+void writeImage();
 void nextImage();
 void removeImage();
 int imageCompare();

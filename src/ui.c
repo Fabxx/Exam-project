@@ -21,7 +21,7 @@ void ui_creator() {
          "2)View uploaded images\n"
          "3)Remove image\n"
          "4)Edit image information\n"
-         "5)Return to main menu\n");
+         "5)Exit\n");
 }
 
 void ui_mode_selection() {

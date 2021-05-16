@@ -16,5 +16,6 @@
 #include "struct.h"
 
 int userExists(user s[], FILE*);
+void getUserData(user*, int);
 
 #endif //USER_MANAGMENT_H_INCLUDED

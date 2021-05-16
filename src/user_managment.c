@@ -28,3 +28,11 @@ int userExists(user s[], FILE* fileptr) {
     return found;
     fclose(fileptr);
 }
+
+void getUserData(user* userData, int type){
+    puts("Insert nickname: ");
+    fgets(userData->username, ID_LENGHT, stdin);
+    puts("Insert job: ");
+    fgets(userData->job, ID_LENGHT, stdin);
+    userData->type = type;
+}

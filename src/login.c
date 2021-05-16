@@ -20,6 +20,7 @@
 #include "../include/user_managment.h"
 #include "../include/ui.h"
 
+
 void account_creation() {
 
     user s[USERS];
@@ -45,8 +46,6 @@ void account_creation() {
 
                 fwrite(&s[i].username, sizeof(user), 1, fileptr);
                 exit = 1;
-                main();
-
             } else {
                 puts("Username already exist\n");
                 rewind(fileptr);
@@ -63,15 +62,17 @@ void account_access() {
     user s[USERS];
 
     FILE *fileptr;
-    fileptr = fopen("account.dat", "r+b");
+    fileptr = fopen("account.dat", "rb+");
     int i = 0;
     
      while(!feof(fileptr)) {
 
          for(i=0; i<USERS; i++) {
              if (fread(&s[i].username, sizeof(user), 1, fileptr) == 0) {
-                puts("No accounts were found, returning to menu..\n");
-                ui_main();
+                puts("No accounts were found, exiting program...\n");
+                system("pause");
+                exit(1);
+                
          } else {
             printf("%d) %s - %s - ", i+1, s[i].username, s[i].job);
             

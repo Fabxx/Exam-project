@@ -7,19 +7,17 @@
 
 int main(void) {
 
-	int choice = 1;
+	int choice = 0;
 
 	makeAccountsFile();
 
-	while(choice != 0) {
 		ui_main();
 		scanf("%d",&choice);
 		fflush(stdin);
-		
+
 		switch(choice) {
 			case 1: {
 				account_creation();
-				system("cls");
 				break;
 			}
 			case 2: {
@@ -29,9 +27,7 @@ int main(void) {
 				break;
 			}
 		}
+		puts("Come back soon.\n");
+
+		return (0);
 	}
-
-	puts("Come back soon");
-
-	return (0);
-}

@@ -17,12 +17,11 @@
 int userExists(user s[], FILE* fileptr) {
     
     int found = 0;
-    user currentUser;
     int i = 0;
 
     while(found == 0 && !feof(fileptr)) {
-        fread(&currentUser, sizeof(user), 1, fileptr);
-        if (strcmp(s[i].username, currentUser.username) != 0) {
+        fread(&s[i].username, sizeof(user), 1, fileptr);
+        if (strcmp(s[i].username, s[i].username_confirm) == 0) {
             found = 1;
         }
     }

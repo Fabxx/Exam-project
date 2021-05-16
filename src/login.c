@@ -28,7 +28,7 @@ void account_creation() {
     int exit = 0;
     int i;
 
-    fileptr = fopen("account.dat", "r+");
+    fileptr = fopen("account.dat", "r+b");
 
     for (i = 0; i < USERS; i++) {
         
@@ -36,34 +36,24 @@ void account_creation() {
         
         puts("Insert username: \n");
         gets(s[i].username);
-        puts("Confirm username: \n");
-        gets(s[i].username_confirm);
-        
-        if(strcmp(s[i].username, s[i].username_confirm) == 0) {
 
-            if(!userExists(s, fileptr)){ //Check if username doesn't exist
+        if (!userExists(s, fileptr)) { //Check if username doesn't exist
                 puts("Insert your job: \n");
                 gets(s[i].job);
                 puts("Account created. You can now login. Returning to menu...\n");
                 s[i].type = i % 2;
 
-                fwrite(&s, sizeof(user), 1, fileptr);
-
+                fwrite(&s[i].username, sizeof(user), 1, fileptr);
                 exit = 1;
 
-            } else{
-                puts("This username is already in use.\n");
+            } else {
+                puts("Username already exist\n");
                 rewind(fileptr);
+                account_creation();
             }
-                    
-        } else {
-            puts("Username is wrong form previous one.\n");
-            rewind(fileptr);
-            
         }
-    }
-}
-    fclose(fileptr);
+    }          
+        fclose(fileptr);
 }
 
 void account_access() {
@@ -71,25 +61,23 @@ void account_access() {
     user s[USERS];
 
     FILE *fileptr;
-    fileptr = fopen("account.dat", "r+");
+    fileptr = fopen("account.dat", "r+b");
     int i = 0;
 
     puts("Insert your username\n");
      
      while(!feof(fileptr)) {
 
-         if (fread(&s[i], sizeof(user), 1, fileptr) == NULL) {
+         if (fread(&s[i].username, sizeof(user), 1, fileptr) == 0) {
 
-            puts("Username not found.\n");
+            puts("No accounts were found, returning to menu..\n");
             ui_main();
          } else {
             printf("%d) %s - %s - ",i+1,s[i].username,s[i].job);
             
             if(s[i].type == 1) {
                 printf("Creator\n");
-            }
-                
-            else {
+            } else {
                 printf("User\n");
             }
                 

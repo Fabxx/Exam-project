@@ -68,7 +68,9 @@ void account_access() {
      while(!feof(fileptr)) {
 
          for(i=0; i<USERS; i++) {
-             if (fread(&s[i].username, sizeof(user), 1, fileptr) == 0) {
+             fread(&s[i].username, sizeof(user), 1, fileptr);
+
+             if (fread(&s[i].username, sizeof(user), 1, fileptr) == NULL) {
                 puts("No accounts were found, exiting program...\n");
                 system("pause");
                 exit(1);

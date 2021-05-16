@@ -29,10 +29,10 @@ int userExists(user s[], FILE* fileptr) {
     fclose(fileptr);
 }
 
-void getUserData(user* userData, int type){
+void getUserData(user* structPtr, int type){
     puts("Insert nickname: ");
-    fgets(userData->username, ID_LENGHT, stdin);
+    fgets(structPtr->username, ID_LENGHT, stdin);
     puts("Insert job: ");
-    fgets(userData->job, ID_LENGHT, stdin);
-    userData->type = type;
+    fgets(structPtr->job, ID_LENGHT, stdin);
+    structPtr->type = type;
 }

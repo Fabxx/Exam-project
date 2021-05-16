@@ -17,13 +17,16 @@ int main(void) {
 
 		switch(choice) {
 			case 1: {
+			do {
 				account_creation();
+			} while(choice == 1);
 				break;
 			}
 			case 2: {
+			do {
 				account_access();
 				ui_creator();
-				
+			} while(choice == 2);
 				break;
 			}
 		}

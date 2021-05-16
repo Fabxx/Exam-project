@@ -40,11 +40,13 @@ void writeImage(image newImage[], FILE *fileptr) {
 }
 
 int nextImage(FILE* fileptr) {
+
+    fileptr = fopen("images.bin", "a+b");
     
     int data;
 
     fread(&data, sizeof(image), 1, fileptr);
-    
+    fclose(fileptr);
     return data;
 }
 

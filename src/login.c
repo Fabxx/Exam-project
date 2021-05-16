@@ -63,15 +63,13 @@ void account_access() {
     FILE *fileptr;
     fileptr = fopen("account.dat", "r+b");
     int i = 0;
-
-    puts("Insert your username\n");
-     
+    
      while(!feof(fileptr)) {
 
-         if (fread(&s[i].username, sizeof(user), 1, fileptr) == 0) {
-
-            puts("No accounts were found, returning to menu..\n");
-            ui_main();
+         for(i=0; i<USERS; i++) {
+             if (fread(&s[i].username, sizeof(user), 1, fileptr) == 0) {
+                puts("No accounts were found, returning to menu..\n");
+                ui_main();
          } else {
             printf("%d) %s - %s - ",i+1,s[i].username,s[i].job);
             
@@ -80,9 +78,8 @@ void account_access() {
             } else {
                 printf("User\n");
             }
-                
-         }
-            
-     }
 
+            }       
+        }
+    }
 }

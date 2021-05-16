@@ -54,7 +54,9 @@ int nextImage() {
     return nextImage;
 }
 
-int imageCompare(image arr[]) {
+int imageCompare() {
+
+    image arr[IMAGES];
     int equals = 0;
     int i;
 

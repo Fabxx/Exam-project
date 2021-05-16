@@ -11,8 +11,8 @@ int main(void) {
 
 	makeAccountsFile();
 	imageFileInit();
+	ui_choices();
 
-		
 		puts("Come back soon.\n");
 
 		return (0);

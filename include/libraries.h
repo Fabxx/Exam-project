@@ -27,6 +27,7 @@
 #define TITLE_SIZE 40
 #define F_TYPE 10
 #define USERS 2
+#define IMAGES 1
 
 
 #include <stdio.h>

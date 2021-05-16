@@ -18,7 +18,10 @@ void ui_creator() {
     puts("Select the desired option\n"
          
          "1)Upload an image\n"
-         "2)View uploaded images\n");
+         "2)View uploaded images\n"
+         "3)Remove image\n"
+         "4)Edit image information\n"
+         "5)Return to main menu\n");
 }
 
 void ui_mode_selection() {
@@ -26,13 +29,6 @@ void ui_mode_selection() {
     puts("Select the mode you want to use\n"
          "1)User\n"
          "2)Creator\n");
-}
-
-void ui_creator_image_options() {
-     puts("Select the desired option\n"
-          "1) Return to main menu\n"
-          "2) Edit image information\n"
-          "3) Remove image");
 }
 
 void ui_user() {

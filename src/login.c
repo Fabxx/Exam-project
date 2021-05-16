@@ -45,6 +45,7 @@ void account_creation() {
 
                 fwrite(&s[i].username, sizeof(user), 1, fileptr);
                 exit = 1;
+                main();
 
             } else {
                 puts("Username already exist\n");
@@ -54,6 +55,7 @@ void account_creation() {
         }
     }          
         fclose(fileptr);
+
 }
 
 void account_access() {
@@ -71,7 +73,7 @@ void account_access() {
                 puts("No accounts were found, returning to menu..\n");
                 ui_main();
          } else {
-            printf("%d) %s - %s - ",i+1,s[i].username,s[i].job);
+            printf("%d) %s - %s - ", i+1, s[i].username, s[i].job);
             
             if(s[i].type == 1) {
                 printf("Creator\n");

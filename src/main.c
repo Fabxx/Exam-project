@@ -4,12 +4,15 @@
 #include "../include/file_creation.h"
 #include "../include/struct.h"
 #include "../include/user_managment.h"
+#include "../include/image_management.h"
+#include "../include/ui_choices.h"
 
 int main(void) {
 
 	int choice = 0;
 
 	makeAccountsFile();
+	imageFileInit();
 
 		ui_main();
 		scanf("%d",&choice);
@@ -17,16 +20,15 @@ int main(void) {
 
 		switch(choice) {
 			case 1: {
-			do {
 				account_creation();
-			} while(choice == 1);
 				break;
 			}
 			case 2: {
-			do {
 				account_access();
+				
 				ui_creator();
-			} while(choice == 2);
+				ui_choices();
+
 				break;
 			}
 		}

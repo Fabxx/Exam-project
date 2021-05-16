@@ -15,48 +15,59 @@
 
 int imageFileInit() {
     int success = 0;
-    FILE* images;
+    FILE *fileptr;
     
-    images = fopen("images.bin","ab+");
+    fileptr = fopen("images.bin","a+b");
 
-    if(images != NULL){
+    if(fileptr != NULL){
         success = 1;
     }
-    fclose(images);
+    fclose(fileptr);
 
     return success;
 }
 
-void writeImage(image newImage, FILE* dest) {
-    fwrite(&newImage, sizeof(image), 1, dest);
+void writeImage(image newImage[], FILE *fileptr) {
+
+    fileptr = fopen("images.bin", "a+b");
+    
+    int i;
+
+    for(i=0; i<IMAGES; i++) {
+        fwrite(&newImage[i], sizeof(image), 1, fileptr);
+    }    
+        fclose(fileptr);    
 }
 
-image nextImage(FILE* source) {
-    image data;
+int nextImage(FILE* fileptr) {
+    
+    int data;
 
-    fread(&data, sizeof(image), 1, source);
+    fread(&data, sizeof(image), 1, fileptr);
     
     return data;
 }
 
-int imageCompare(image source1, image source2) {
+int imageCompare(image arr[]) {
     int equals = 0;
     int i;
 
-    if(strcmp(source1.author, source2.author) == 0) {
+    for(i=0; i< IMAGES; i++) {
 
-        if(source1.downloads == source2.downloads) {
+        if(strcmp(arr[i].author, arr[i+1].author) == 0) {
 
-            if(strcmp(source1.file_name, source2.file_name) == 0) {
+        if(arr[i].downloads == arr[i+1].downloads) {
 
-                if(strcmp(source1.file_type, source2.file_type) == 0) {
+            if(strcmp(arr[i].file_name, arr[i+1].file_name) == 0) {
 
-                    if(source1.vote == source2.vote){
+                if(strcmp(arr[i].file_type, arr[i+1].file_type) == 0) {
 
-                        if(strcmp(source1.title, source2.title) == 0) {
+                    if(arr[i].vote == arr[i+1].vote){
+
+                        if(strcmp(arr[i+1].title, arr[i+1].title) == 0) {
                             equals = 1;
                             for(i = 0; i < KEYS; i++){
-                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0) {
+                                if(strcmp(arr[i+1].keywords, arr[i+1].keywords) == 0) {
                                     equals = 0;
                                 }
                             }
@@ -66,22 +77,21 @@ int imageCompare(image source1, image source2) {
             }
         }    
     }
-        
-
+}
     return equals;
 }
 
-void removeImage(image toRemove){
+void removeImage(int toRemove){
     int success = 0;
     FILE* images;
-    image currentImage;
+    int currentImage;
 
     images = fopen("images.bin","rb+");
 
     while(!feof(images) && success == 0){
         currentImage = nextImage(images);
 
-        if(imageCompare(toRemove, currentImage) == 1){
+        if(imageCompare(toRemove) == 1){
 
             //I don't feel confident about this one.
             while(!feof(images)){

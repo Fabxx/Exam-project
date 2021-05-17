@@ -166,7 +166,7 @@ void ui_download_list() {
      }      
         
         printf("Download list:\n");
-        for (j=0; j<foundList[j]; j++) {
+        for (j=0; j<foundList; j++) {
 
                 printf("Title:\t"
                        "File type:\t"

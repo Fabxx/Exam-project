@@ -14,6 +14,7 @@
 #include "../include/user_managment.h"
 #include "../include/struct.h"
 
+/*
 int userExists(user s[], FILE* fileptr) {
     
     int found = 0;
@@ -28,6 +29,7 @@ int userExists(user s[], FILE* fileptr) {
     return found;
     fclose(fileptr);
 }
+*/
 
 void getUserData(user* structPtr, int type){
     puts("Insert nickname: ");

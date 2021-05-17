@@ -13,71 +13,50 @@
 #include "../include/libraries.h"
 #include "../include/struct.h"
 
-int imageFileInit() {
+int imageFileInit(){
     int success = 0;
-    FILE *fileptr;
+    FILE* images;
     
-    fileptr = fopen("images.bin","a+b");
+    images = fopen("images.bin","ab+");
 
-    if(fileptr != NULL){
+    if(images != NULL){
         success = 1;
     }
-    fclose(fileptr);
+    fclose(images);
 
     return success;
 }
 
-void writeImage() {
+void writeImage(image newImage, FILE* dest){
+    fwrite(&newImage, sizeof(image), 1, dest);
+}
 
-    image arr[IMAGES];
-    FILE *fileptr;
+image nextImage(FILE* source){
+    image data;
 
-    fileptr = fopen("images.bin", "a+b");
+    fread(&data, sizeof(image),1,source);
     
-    int i;
-
-    for(i=0; i<IMAGES; i++) {
-        fwrite(&arr[i].file_name, sizeof(image), 1, fileptr);
-    }    
-        fclose(fileptr);    
+    return data;
 }
 
-void nextImage() {
-
-    image arr[IMAGES];
-    FILE *fileptr;
-
-    int i;
-
-    fileptr = fopen("images.bin", "a+b");
-
-    fread(&arr[i].file_name, sizeof(image), 1, fileptr);
-    fclose(fileptr);
-
-}
-
-int imageCompare() {
-
-    image arr[IMAGES];
+int imageCompare(image source1, image source2){
     int equals = 0;
     int i;
 
-    for(i=0; i< IMAGES; i++) {
+    if(strcmp(source1.author, source2.author)){
 
-        if(strcmp(arr[i].author, arr[i+1].author) == 0) {
+        if(source1.downloads == source2.downloads){
 
-        if(arr[i].downloads == arr[i+1].downloads) {
+            if(strcmp(source1.file_name, source2.file_name)){
 
-            if(strcmp(arr[i].file_name, arr[i+1].file_name) == 0) {
+                if(strcmp(source1.file_type, source2.file_type)){
 
-                if(strcmp(arr[i].file_type, arr[i+1].file_type) == 0) {
+                    if(source1.vote == source2.vote){
 
-                    if(arr[i].vote == arr[i+1].vote){
-
-                        if(strcmp(arr[i+1].title, arr[i+1].title) == 0) {
+                        if(strcmp(source1.title, source2.title)){
                             equals = 1;
                             for(i = 0; i < KEYS; i++){
-                                if(strcmp(arr[i+1].keywords, arr[i+1].keywords) == 0) {
+                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0){
                                     equals = 0;
                                 }
                             }
@@ -87,30 +66,32 @@ int imageCompare() {
             }
         }    
     }
-}
+        
+
     return equals;
 }
 
-void removeImage(){
+void removeImage(image toRemove){
     int success = 0;
     FILE* images;
-    image arr[IMAGES];
-    int i;
+    image currentImage;
 
-    images = fopen("images.bin","r+b");
+    images = fopen("images.bin","rb+");
 
-    while(!feof(images) && success == 0) {
+    while(!feof(images) && success == 0){
+        currentImage = nextImage(images);
 
-        if(imageCompare() == 1){
+        if(imageCompare(toRemove, currentImage) == 1){
 
-            while(!feof(images)) {
+            //I don't feel confident about this one.
+            while(!feof(images)){
                 fseek(images, -sizeof(image), SEEK_CUR); //Return to position of image to be deleted, go back 1 image
-                writeImage(arr[i], images); //Write next image to it
+                writeImage(currentImage, images); //Write next image to it
                 fseek(images, sizeof(image) * 2, SEEK_CUR); //Go to next image, we are poiting to the image we just removed so we need to skip the now duplicate entry
             }
-                fseek(images, -sizeof(image), SEEK_END); //Go to last duplicate entry
-                fwrite(NULL, sizeof(image), 1, images); //We need to find a better way to remove the last duplicate. 
-                success = 1;
+            //fseek(images, -sizeof(image), SEEK_END); //Go to last duplicate entry
+            //fwrite(NULL, sizeof(image), 1, images); //We need to find a better way to remove the last duplicate. 
+            success = 1;
         }
     }
 

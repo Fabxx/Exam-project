@@ -6,9 +6,10 @@
 
 int imageFileInit();
 
-void writeImage();
-void nextImage();
-void removeImage();
-int imageCompare();
+void writeImage(image, FILE*);
+image nextImage(FILE*);
+void removeImage(image);
+int imageCompare(image ,image);
+void searchImage(char*);
 
 #endif

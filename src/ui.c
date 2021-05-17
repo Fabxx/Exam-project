@@ -10,7 +10,7 @@ void ui_main() {
      puts("You need an account to use the service\n"
           "1) New account\n"
           "2) Existing account\n"
-          "0) Exit\n");
+          "3) Exit\n");
 }
 
 void ui_creator() {
@@ -28,13 +28,15 @@ void ui_mode_selection() {
      
     puts("Select the mode you want to use\n"
          "1)User\n"
-         "2)Creator\n");
+         "2)Creator\n"
+         "3)Exit program\n");
 }
 
 void ui_user() {
 
     puts("Select the desired option\n"
          "1)Search for an image\n"
-         "2)List most downloaded");
+         "2)Download an image\n"
+         "3)Exit\n");
         
 }

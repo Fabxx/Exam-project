@@ -101,6 +101,7 @@ void ui_choices_creator() {
 }
 
 void ui_search_image() {
+
     image foundList[10];
     image currentImage;
     int found;
@@ -129,7 +130,7 @@ void ui_search_image() {
             }
         }
 
-        if(found == 1){
+        if(found == 1) {
             foundList[foundImages] = currentImage;
             foundImages++;
         }
@@ -141,6 +142,39 @@ void ui_search_image() {
         printf("%s\n",foundList[i].title);
     }
     printf("End of the search\n");
+
+
+}
+
+void ui_download_list() {
+
+    image foundList[10];
+    int p;
+    image tmp;
+    int i, j;
+
+     for (i=0; i<p-1; i++) {
+
+         if(foundList[i].downloads > foundList[i+1].downloads) {
+
+                tmp = foundList[i];
+                foundList[i] = foundList[i+1];
+                foundList[i+1] = tmp;
+
+         }
+         p-=1;
+     }      
+        
+        printf("Download list:\n");
+        for (j=0; j<foundList[j]; j++) {
+
+                printf("Title:\t"
+                       "File type:\t"
+                       "File name:\t"
+                       "Number of Downloads:\t", foundList[j].title, foundList[j].file_type, 
+                                                 foundList[j].file_name, foundList[j].downloads);
+                    
+        }
 
 
 }

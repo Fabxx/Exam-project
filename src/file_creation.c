@@ -4,7 +4,7 @@
 void makeAccountsFile() {
 
     FILE *fileptr;
-    fileptr = fopen("account.dat", "ab");
+    fileptr = fopen("account.dat", "w+b");
     if (fileptr == NULL) {
         puts("File not created, aborting...\n");
         exit(1);

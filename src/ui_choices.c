@@ -1,14 +1,14 @@
 /**
  * @file ui_choices.c
  * @author Fabio Spiriticchio - Sergio Mari
- * @brief Questa funzione raccoglie tutte le scelte da fare nei menu, selection gestisce le scelte per 
+ * @brief Questa funzione raccoglie tutte le scelte da fare nei menu, selection gestisce le scelte per
  *        il tipo di account da usare, choice gestisce il tipo di scelte da fare con un account specifico
- *        decision gestisce la scelta su un'immagine fatta 
+ *        decision gestisce la scelta su un'immagine fatta
  * @version 0.1
  * @date 2021-05-16
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include "../include/ui_choices.h"
@@ -16,6 +16,7 @@
 #include "../include/image_management.h"
 #include "../include/ui.h"
 #include "../include/struct.h"
+#include "../include/user_managment.h"
 
 
 void ui_choices() {
@@ -42,13 +43,13 @@ void ui_choices() {
 }
 
 void ui_choices_user() {
-    
-    user currentUserPtr;
+
+    user currentUser;
     int decision;
 
-    getUserData(currentUserPtr, 0);
+    getUserData(&currentUser, 0);
 
-    while(decision != 3) {
+    while(decision != 4) {
 
         ui_user();
         scanf("%d", &decision);
@@ -60,19 +61,22 @@ void ui_choices_user() {
                 break;
             }
             case 2: {
-                //List most downloaded
+                ui_download_list();
                 break;
+            }
+            case 3: { //TODO #5 Download image function
+
             }
         }
     }
 }
 
 void ui_choices_creator() {
-    
+
     user currentUser;
     int decision = 0;
 
-    getUserData(currentUser, 1);
+    getUserData(&currentUser, 1);
 
     while(decision != 5) {
         ui_creator();
@@ -81,18 +85,18 @@ void ui_choices_creator() {
 
         switch (decision) {
             case 1: {
-                //Upload new image
-            break;
-            }
-            case 2: { 
-                //Show uploaded images
+                ui_upload(currentUser);
                 break;
             }
-            case 3: { 
+            case 2: {
+                ui_upload_list(currentUser);
+                break;
+            }
+            case 3: {
                 //Remove image
                 break;
             }
-            case 4: { 
+            case 4: {
                 //Edit image info
                 break;
             }
@@ -108,7 +112,7 @@ void ui_search_image() {
     int i, j, foundImages = 0;
     FILE* images;
 
-    images = fopen("images.bin","r+b");
+    images = fopen("images.dat","rb");
 
     char string[TITLE_SIZE];
     puts("Insert search term: ");
@@ -149,32 +153,111 @@ void ui_search_image() {
 void ui_download_list() {
 
     image foundList[10];
-    int p;
     image tmp;
-    int i, j;
+    int i = 0, j = 0, p = 0;
+    FILE *fileptr;
+    fileptr = fopen("images.dat", "rb");
 
-     for (i=0; i<p-1; i++) {
+    if(fileptr != NULL){
+        while(!feof(fileptr) && i < 10) {
 
-         if(foundList[i].downloads > foundList[i+1].downloads) {
+            fread(&foundList[i], sizeof(image), 1, fileptr);
+            if(!feof(fileptr))
+                i++;
 
-                tmp = foundList[i];
-                foundList[i] = foundList[i+1];
-                foundList[i+1] = tmp;
-
-         }
-         p-=1;
-     }      
-        
-        printf("Download list:\n");
-        for (j=0; j<foundList; j++) {
-
-                printf("Title:\t"
-                       "File type:\t"
-                       "File name:\t"
-                       "Number of Downloads:\t", foundList[j].title, foundList[j].file_type, 
-                                                 foundList[j].file_name, foundList[j].downloads);
-                    
+        }
+        for(j = 0; j < i-1; j++){
+            if(foundList[j].downloads > foundList[j+1].downloads) {
+                tmp = foundList[j];
+                foundList[j] = foundList[j+1];
+                foundList[j+1] = tmp;
+            }
         }
 
+        printf("Download list:\n");
+        for (j = 0; j<i; j++) {
 
+            printf("Title:%s\t"
+                "File type:%s\t"
+                "File name:%s\t"
+                "Number of Downloads:%d\n", foundList[j].title, foundList[j].file_type,
+                                        foundList[j].file_name, foundList[j].downloads);
+
+        }
+    }
+
+}
+
+void ui_upload(user creator) {
+    image new_image;
+    int i;
+    FILE* images;
+    char* charptr;
+
+    images = fopen("images.dat", "a+b");
+
+    puts("Insert Title: ");
+    fgets(new_image.title, TITLE_SIZE, stdin);
+    charptr = strstr(new_image.title, "\n");
+    *charptr = 0;
+
+    puts("Insert file type (extension) : ");
+    fgets(new_image.file_type, F_TYPE, stdin);
+    charptr = strstr(new_image.file_type, "\n");
+    *charptr = 0;
+
+    puts("Insert the file name: ");
+    fgets(new_image.file_name, NAME_SIZE, stdin);
+    charptr = strstr(new_image.file_name, "\n");
+    *charptr = 0;
+
+    for(i = 0; i < KEYS; i++){
+        puts("Insert a keyword, leave blank to continue: ");
+        fgets(new_image.keywords[i], KEY_LENGHT, stdin);
+
+        if(strcmp(new_image.keywords[i], "\n") == 0){
+            i = KEYS;
+        }
+    }
+
+    strcpy(new_image.author, creator.username);
+
+    new_image.vote = 0;
+    new_image.downloads = 0;
+
+    writeImage(new_image, images);
+
+    fclose(images);
+
+}
+
+void ui_upload_list(user creator) {
+
+    image foundList[10];
+    int i = 0, j = 0, p = 0;
+    FILE *fileptr;
+    fileptr = fopen("images.dat", "rb");
+
+    if(fileptr != NULL){
+        while(!feof(fileptr) && i < 10) {
+
+            fread(&foundList[i], sizeof(image), 1, fileptr);
+            if(!feof(fileptr) && strcmp(foundList[i].author, creator.username) == 0)
+                i++;
+
+        }
+
+        printf("Uploads list:\n");
+        for (j = 0; j<i; j++) {
+
+            printf("Title:%s\t"
+                "File type:%s\t"
+                "File name:%s\t"
+                "Number of Downloads:%d\t"
+                "Author:%s \n", foundList[j].title, foundList[j].file_type,
+                                        foundList[j].file_name, foundList[j].downloads, foundList[j].author);
+
+        }
+    }
+        fclose(fileptr);
 }

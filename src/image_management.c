@@ -17,7 +17,7 @@ int imageFileInit(){
     int success = 0;
     FILE* images;
     
-    images = fopen("images.bin","ab+");
+    images = fopen("images.dat","ab+");
 
     if(images != NULL){
         success = 1;
@@ -76,7 +76,7 @@ void removeImage(image toRemove){
     FILE* images;
     image currentImage;
 
-    images = fopen("images.bin","rb+");
+    images = fopen("images.dat","rb+");
 
     while(!feof(images) && success == 0){
         currentImage = nextImage(images);

@@ -7,4 +7,7 @@ void ui_choices_user();
 void ui_search_image();
 void ui_download_list();
 
+void ui_upload(user);
+void ui_upload_list(user);
+
 #endif // !UI_CHOICES_H_INCLUDED

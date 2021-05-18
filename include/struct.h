@@ -30,7 +30,6 @@
 typedef struct {
 
     char username[ID_LENGHT];
-    char username_confirm[ID_LENGHT];
     char job[ID_LENGHT];
     int type; 
 

@@ -73,6 +73,7 @@ void ui_choices_user() {
 
 void ui_choices_creator() {
 
+    image found_images[10];
     user currentUser;
     int decision = 0;
 
@@ -89,7 +90,7 @@ void ui_choices_creator() {
                 break;
             }
             case 2: {
-                ui_upload_list(currentUser);
+                ui_upload_list(currentUser, found_images);
                 break;
             }
             case 3: {
@@ -120,7 +121,7 @@ void ui_search_image() {
     string[strlen(string) - 1] = 0;
 
     i = 0;
-    while(!feof(images) && images != NULL){
+    while(!feof(images) && images != NULL) {
         currentImage = nextImage(images);
         found = 1;
         if(strstr(currentImage.title, string) == NULL){
@@ -221,43 +222,69 @@ void ui_upload(user creator) {
     }
 
     strcpy(new_image.author, creator.username);
-
     new_image.vote = 0;
     new_image.downloads = 0;
-
     writeImage(new_image, images);
-
     fclose(images);
 
 }
 
-void ui_upload_list(user creator) {
+int ui_upload_list(user creator, image foundList[]) {
 
-    image foundList[10];
     int i = 0, j = 0, p = 0;
     FILE *fileptr;
     fileptr = fopen("images.dat", "rb");
 
-    if(fileptr != NULL){
+    if(fileptr != NULL) {
         while(!feof(fileptr) && i < 10) {
-
             fread(&foundList[i], sizeof(image), 1, fileptr);
             if(!feof(fileptr) && strcmp(foundList[i].author, creator.username) == 0)
                 i++;
-
         }
 
         printf("Uploads list:\n");
         for (j = 0; j<i; j++) {
 
-            printf("Title:%s\t"
+            printf("%d) Title:%s\t"
                 "File type:%s\t"
                 "File name:%s\t"
                 "Number of Downloads:%d\t"
-                "Author:%s \n", foundList[j].title, foundList[j].file_type,
+                "Author:%s \n", j+1, foundList[j].title, foundList[j].file_type,
                                         foundList[j].file_name, foundList[j].downloads, foundList[j].author);
 
         }
     }
-        fclose(fileptr);
+    fclose(fileptr);
+    
+    return i;
+}
+
+void ui_edit_image(user creator) {
+    
+    image foundList[10];
+    image current_image;
+    int images_n, found;
+    FILE *fileptr;
+    fileptr = fopen("images.dat", "r+b");
+    int choice = INT_MAX;
+
+    images_n = ui_upload_list(creator, foundList);
+
+    while(choice > images_n) {
+        puts("Select the image you want to edit:\n");
+        scanf("%d", &choice);
+        fflush(stdin);
+
+        if(choice <= images_n && choice > 0){
+            found = 0;
+            while(found == 0 && !feof(fileptr)){
+                current_image = nextImage(fileptr);
+                found = imageCompare(current_image, foundList[choice - 1]);
+                //TODO #7 retrieve image position
+            }
+                //TODO #6 aggiungere funzione di modifica immagine
+        }
+
+    }
+
 }

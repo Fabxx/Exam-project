@@ -34,7 +34,7 @@ void writeImage(image newImage, FILE* dest){
 image nextImage(FILE* source){
     image data;
 
-    fread(&data, sizeof(image),1,source);
+    fread(&data, sizeof(image), 1, source);
     
     return data;
 }
@@ -56,7 +56,7 @@ int imageCompare(image source1, image source2){
                         if(strcmp(source1.title, source2.title)){
                             equals = 1;
                             for(i = 0; i < KEYS; i++){
-                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0){
+                                if(strcmp(source1.keywords[i], source2.keywords[i]) != 0){
                                     equals = 0;
                                 }
                             }

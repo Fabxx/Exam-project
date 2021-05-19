@@ -142,7 +142,7 @@ void ui_search_image() {
         //...
     }
 
-    for(i = 0; i < foundImages; i++){
+    for(i = 0; i < IMAGES; i++) {
         printf("%s\n",foundList[i].title);
     }
     printf("End of the search\n");

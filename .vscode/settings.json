@@ -1,7 +1,0 @@
-{
-    "C_Cpp.dimInactiveRegions": false,
-    "files.associations": {
-        "user_managment.h": "c",
-        "struct.h": "c"
-    }
-}

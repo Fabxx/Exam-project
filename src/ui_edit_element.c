@@ -19,7 +19,7 @@ void ui_edit_image_element(char* message, char* original_string, int max_size) {
 
 }
 
-void ui_edit_keys(char* message, char** keys, int max_lenght, int max_keys){
+void ui_edit_keys(char* message, char** keys, int max_lenght, int max_keys) {
 
     int i;
 

@@ -2,6 +2,7 @@
 #include "../include/ui_choices_functions.h"
 #include "../include/struct.h"
 #include "../include/image_management.h"
+#include "../include/ui_edit_element.h"
 
 void ui_search_image() {
 

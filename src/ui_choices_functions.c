@@ -166,6 +166,8 @@ void ui_edit_image(user creator) {
     fileptr = fopen("images.dat", "r+b");
     int choice = INT_MAX;
 
+    char* temp;
+
     images_n = ui_upload_list(creator, foundList);
 
     while(choice > images_n) {
@@ -175,22 +177,30 @@ void ui_edit_image(user creator) {
 
         if(choice <= images_n && choice > 0){
             found = 0;
-            while(found == 0 && !feof(fileptr)){
+            while(found == 0 && !feof(fileptr)) {
                 current_image = nextImage(fileptr);
                 found = imageCompare(current_image, foundList[choice - 1]);
                 
             }
-            if(found == 1){
+            if(found == 1) {
                 //prendiamo la posizione nel file, mediante la dimensione della struttura di riferimento dei dati.
                 fseek(fileptr, -sizeof(image), SEEK_CUR);
+                
+                ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);
+                ui_edit_image_element("Image format (Leave blank for no change) ", current_image.file_type, F_TYPE);
+                ui_edit_image_element("File name (Leave blank for no change) ", current_image.file_name, NAME_SIZE);
+                ui_edit_keys("Insert a keyword (Leave blank to stop editing) ", current_image.keywords, KEY_LENGHT, KEYS);
+                
+                writeImage(current_image, fileptr);
+            }
+                
+
 
                 //TODO #6 aggiungere funzione di modifica immagine
 
-            }
-
-                
         }
 
+                
     }
 
 }

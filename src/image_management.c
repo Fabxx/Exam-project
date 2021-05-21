@@ -1,20 +1,3 @@
-/**
- * @file image_management.c
- * @author Fabio Spiriticchio - Sergio Mari
- * @brief Libreria per la gestione delle immagini. 
- *        -ImageFileInit inizializza il file per la memorizzazione delle immagini
- *        -writeImage scrive i dati delle immagini all'interno del file
- *        -nextImage utilizzato per ricercare l'immagine successiva nel file, ogni immagine pesa
- *                   260 byte con tutti i suoi dati.
- *        -ImageCompare effettua un confronto tra gli attributi inseriti e gli attributi esistenti nel file.
- *        -removeImage permette di rimuovere un'immagine dal file.
- *
- * @version 0.1
- * @date 2021-05-15
- * 
- * @copyright Copyright (c) 2021
- * 
- */
 
 #include "../include/libraries.h"
 #include "../include/struct.h"
@@ -49,21 +32,21 @@ int imageCompare(image source1, image source2){
     int equals = 0;
     int i;
 
-    if(strcmp(source1.author, source2.author)){
+    if(strcmp(source1.author, source2.author) == 0) {
 
         if(source1.downloads == source2.downloads){
 
-            if(strcmp(source1.file_name, source2.file_name)){
+            if(strcmp(source1.file_name, source2.file_name) == 0){
 
-                if(strcmp(source1.file_type, source2.file_type)){
+                if(strcmp(source1.file_type, source2.file_type) == 0){
 
                     if(source1.vote == source2.vote){
 
-                        if(strcmp(source1.title, source2.title)){
+                        if(strcmp(source1.title, source2.title) == 0){
                             equals = 1;
                             for(i = 0; i < KEYS; i++){
-                                if(strcmp(source1.keywords[i], source2.keywords[i]) != 0){
-                                    equals = 0;
+                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0){
+                                    equals = 1;
                                 }
                             }
                         }
@@ -72,8 +55,6 @@ int imageCompare(image source1, image source2){
             }
         }    
     }
-        
-
     return equals;
 }
 

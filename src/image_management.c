@@ -1,7 +1,13 @@
 /**
  * @file image_management.c
  * @author Fabio Spiriticchio - Sergio Mari
- * @brief Libreria per la gestione delle immagini.
+ * @brief Libreria per la gestione delle immagini. 
+ *        -ImageFileInit inizializza il file per la memorizzazione delle immagini
+ *        -writeImage scrive i dati delle immagini all'interno del file
+ *        -nextImage utilizzato per ricercare l'immagine successiva nel file, ogni immagine pesa
+ *                   260 byte con tutti i suoi dati.
+ *        -ImageCompare effettua un confronto tra gli attributi inseriti e gli attributi esistenti nel file.
+ *        -removeImage permette di rimuovere un'immagine dal file.
  *
  * @version 0.1
  * @date 2021-05-15

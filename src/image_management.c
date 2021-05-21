@@ -85,3 +85,4 @@ void removeImage(image toRemove){
     fclose(images);
 }
 
+

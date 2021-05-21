@@ -194,10 +194,6 @@ void ui_edit_image(user creator) {
                 
                 writeImage(current_image, fileptr);
             }
-                
-
-
-                //TODO #6 aggiungere funzione di modifica immagine
 
         }
 

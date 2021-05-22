@@ -72,7 +72,7 @@ void removeImage(image toRemove){
 
             //I don't feel confident about this one.
             while(!feof(images)){
-                fseek(images, -sizeof(image), SEEK_CUR); //Return to position of image to be deleted, go back 1 image
+                fseek(images, (long) (sizeof(image)) * -1, SEEK_CUR); //Return to position of image to be deleted, go back 1 image
                 writeImage(currentImage, images); //Write next image to it
                 fseek(images, sizeof(image) * 2, SEEK_CUR); //Go to next image, we are poiting to the image we just removed so we need to skip the now duplicate entry
             }

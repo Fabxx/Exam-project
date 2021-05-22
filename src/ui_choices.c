@@ -99,7 +99,7 @@ void ui_choices_creator() {
                 break;
             }
             case 4: {
-                //Edit image info
+                ui_edit_image(currentUser);
                 break;
             }
         }

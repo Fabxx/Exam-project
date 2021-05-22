@@ -177,14 +177,18 @@ void ui_edit_image(user creator) {
         scanf("%d", &choice);
         fflush(stdin);
 
-        if(choice <= images_n && choice > 0){
-            fseek(fileptr, sizeof(image) * found_list[choice - 1], SEEK_SET);
+        if(choice <= images_n && choice > 0) {
+            rewind(fileptr);
+            fseek(fileptr, choice, SEEK_SET);
             current_image = nextImage(fileptr);
-            fseek(fileptr, sizeof(image) * found_list[choice - 1], SEEK_SET);
+            fseek(fileptr, choice, SEEK_SET);
                 
             ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);
+            fwrite(current_image.title, TITLE_SIZE, 1,  fileptr);
             ui_edit_image_element("Image format (Leave blank for no change) ", current_image.file_type, F_TYPE);
+            fwrite(current_image.file_type, TITLE_SIZE, 1,  fileptr);
             ui_edit_image_element("File name (Leave blank for no change) ", current_image.file_name, NAME_SIZE);
+            fwrite(current_image.file_name, TITLE_SIZE, 1,  fileptr);
             //*ui_edit_keys("Insert a keyword (Leave blank to stop editing) ", KEY_LENGHT, KEYS, current_image.keywords);
 
             for(i = 0; i < KEYS; i++) {
@@ -194,7 +198,7 @@ void ui_edit_image(user creator) {
                 }
             }
                 
-            writeImage(current_image, fileptr);
+           
         }
 
     }

@@ -18,16 +18,3 @@ void ui_edit_image_element(char* message, char* original_string, int max_size) {
     free(temp);
 
 }
-
-void ui_edit_keys(char* message, char** keys, int max_lenght, int max_keys) {
-
-    int i;
-
-    for(i = 0; i < max_keys; i++){
-        ui_edit_image_element(message, keys[i], max_lenght);
-        if(strcmp(keys[i], "") == 0){
-            i = max_lenght; //exit loop
-        }
-    }
-
-}

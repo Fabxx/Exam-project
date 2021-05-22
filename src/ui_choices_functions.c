@@ -152,7 +152,7 @@ int ui_upload_list(user creator, int foundList[]) {
                 "File type:%s\t"
                 "File name:%s\t"
                 "Number of Downloads:%d\t"
-                "Author:%s \n", j+1, currentImage.title, currentImage.file_type,
+                "Author:%s \n", j, currentImage.title, currentImage.file_type,
                                     currentImage.file_name, currentImage.downloads, currentImage.author);
             } 
         }

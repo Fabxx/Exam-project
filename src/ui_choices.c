@@ -19,7 +19,6 @@
 #include "../include/user_managment.h"
 #include "../include/ui_choices_functions.h"
 
-
 void ui_choices() {
 
     int choice = 0;
@@ -65,7 +64,8 @@ void ui_choices_user() {
                 ui_most_downloaded();
                 break;
             }
-            case 3: { //TODO #5 Download image function
+            case 3: { 
+                ui_download_image(currentUser);
 
             }
         }

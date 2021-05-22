@@ -38,8 +38,6 @@ void ui_search_image() {
             foundList[foundImages] = currentImage;
             foundImages++;
         }
-
-        //...
     }
 
     for(i = 0; i < IMAGES; i++) {
@@ -47,7 +45,7 @@ void ui_search_image() {
     }
     printf("End of the search\n");
 
-
+    fclose(images);
 }
 
 void ui_most_downloaded() {
@@ -85,7 +83,7 @@ void ui_most_downloaded() {
 
         }
     }
-
+        fclose(fileptr);
 }
 
 void ui_upload(user creator) {
@@ -156,16 +154,10 @@ int ui_upload_list(user creator, int foundList[]) {
                 "Number of Downloads:%d\t"
                 "Author:%s \n", j+1, currentImage.title, currentImage.file_type,
                                     currentImage.file_name, currentImage.downloads, currentImage.author);
-
-            }
-                
+            } 
         }
-
-        
-        
     }
     fclose(fileptr);
-    
     return i;
 }
 
@@ -178,8 +170,6 @@ void ui_edit_image(user creator) {
     fileptr = fopen("images.dat", "r+b");
     int choice = INT_MAX;
     
-
-
     images_n = ui_upload_list(creator, found_list);
 
     while(choice > images_n) {
@@ -208,7 +198,7 @@ void ui_edit_image(user creator) {
         }
 
     }
-
+        fclose(fileptr);
 }
 
 void ui_download_image(user creator) {
@@ -237,10 +227,8 @@ void ui_download_image(user creator) {
             }
             if(found == 1) {
                 //prendiamo la posizione nel file, mediante la dimensione della struttura di riferimento dei dati.
-                fseek(fileptr, (long) (sizeof(image)) * -1, SEEK_CUR);
+                fseek(fileptr, (long) (sizeof(image)) * -1, SEEK_SET);
                 current_image.downloads++;
-                
-                
                 writeImage(current_image, fileptr);
             }
 
@@ -249,5 +237,6 @@ void ui_download_image(user creator) {
                 
     }
 
-
+        fclose(fileptr);
 }
+

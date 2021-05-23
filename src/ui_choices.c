@@ -66,7 +66,12 @@ void ui_choices_user() {
             }
             case 3: { 
                 ui_download_image(currentUser);
+                break;
 
+            }
+            case 4: {
+                ui_rate_image(currentUser);
+                break;
             }
         }
     }

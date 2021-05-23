@@ -143,9 +143,8 @@ int ui_upload_list(user creator, int foundList[]) {
     if(fileptr != NULL) {
         printf("Uploads list:\n");
 
-        while(!feof(fileptr) && i < 10) {
+        while(!feof(fileptr) && i < SEARCH_MAX_SIZE) {
             fread(&currentImage, sizeof(image), 1, fileptr);
-            j++;
             if(!feof(fileptr) && strcmp(currentImage.author, creator.username) == 0){
                 foundList[i] = j;
                 i++;
@@ -154,9 +153,10 @@ int ui_upload_list(user creator, int foundList[]) {
                 "File type:%s\t"
                 "File name:%s\t"
                 "Number of Downloads:%d\t"
-                "Author:%s \n", j, currentImage.title, currentImage.file_type,
+                "Author:%s \n", i, currentImage.title, currentImage.file_type,
                                     currentImage.file_name, currentImage.downloads, currentImage.author);
             } 
+            j++;
         }
     }
     fclose(fileptr);
@@ -183,9 +183,9 @@ void ui_edit_image(user creator) {
         if(choice <= images_n && choice > 0) {
 
             rewind(fileptr);
-            fseek(fileptr, sizeof(image) * (choice -1), SEEK_SET);
+            fseek(fileptr, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
             current_image = nextImage(fileptr);
-            fseek(fileptr, sizeof(image) * (choice -1), SEEK_SET);
+            fseek(fileptr, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
 
             if(strcmp(creator.username, current_image.author) == 0){
                 ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);

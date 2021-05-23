@@ -53,3 +53,6 @@ dkms.conf
 
 # Make settings local
 .vscode/settings.json
+
+# Temporary. Take files local.
+*.dat

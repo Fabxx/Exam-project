@@ -28,6 +28,7 @@
 #define F_TYPE 10
 #define USERS 2
 #define IMAGES 2
+#define SEARCH_MAX_SIZE 40
 
 
 #include <stdio.h>

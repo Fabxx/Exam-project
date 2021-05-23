@@ -126,7 +126,9 @@ void ui_upload(user creator) {
     strcpy(new_image.author, creator.username);
     new_image.vote = 0;
     new_image.downloads = 0;
+
     writeImage(new_image, images);
+
     fclose(images);
 
 }
@@ -163,12 +165,13 @@ int ui_upload_list(user creator, int foundList[]) {
 
 void ui_edit_image(user creator) {
     
-    int found_list[40];
+    int found_list[SEARCH_MAX_SIZE];
     image current_image;
     int images_n, i;
+
+    int choice = INT_MAX;
     FILE *fileptr;
     fileptr = fopen("images.dat", "r+b");
-    int choice = INT_MAX;
     
     images_n = ui_upload_list(creator, found_list);
 
@@ -179,24 +182,26 @@ void ui_edit_image(user creator) {
 
         if(choice <= images_n && choice > 0) {
             rewind(fileptr);
-            fseek(fileptr, choice, SEEK_SET);
+            fseek(fileptr, sizeof(image) * (choice -1), SEEK_SET);
             current_image = nextImage(fileptr);
-            fseek(fileptr, choice, SEEK_SET);
+            fseek(fileptr, sizeof(image) * (choice -1), SEEK_SET);
                 
             ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);
             fwrite(current_image.title, TITLE_SIZE, 1,  fileptr);
+
             ui_edit_image_element("Image format (Leave blank for no change) ", current_image.file_type, F_TYPE);
-            fwrite(current_image.file_type, TITLE_SIZE, 1,  fileptr);
+            fwrite(current_image.file_type, F_TYPE, 1,  fileptr);
+
             ui_edit_image_element("File name (Leave blank for no change) ", current_image.file_name, NAME_SIZE);
-            fwrite(current_image.file_name, TITLE_SIZE, 1,  fileptr);
-            //*ui_edit_keys("Insert a keyword (Leave blank to stop editing) ", KEY_LENGHT, KEYS, current_image.keywords);
+            fwrite(current_image.file_name, NAME_SIZE, 1,  fileptr);
 
             for(i = 0; i < KEYS; i++) {
                 ui_edit_image_element("Insert a keyword (Leave blank to stop editing) ", current_image.keywords[i], KEY_LENGHT);
                 if(strcmp(current_image.keywords[i], "") == 0){
-                    i = KEY_LENGHT; //exit loop
+                    i = KEYS; //exit loop
                 }
             }
+            fwrite(current_image.keywords, KEY_LENGHT * KEYS, 1, fileptr);
                 
            
         }

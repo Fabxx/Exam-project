@@ -74,7 +74,7 @@ void ui_choices_user() {
 
 void ui_choices_creator() {
 
-    image found_images[10];
+    int found_images[SEARCH_MAX_SIZE];
     user currentUser;
     int decision = 0;
 

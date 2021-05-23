@@ -38,6 +38,7 @@ void ui_user() {
          "1)Search for an image\n"
          "2)View download list\n"
          "3)Download an image\n"
-         "4)Exit\n");
+         "4)Rate an image\n"
+         "5)Exit\n");
         
 }

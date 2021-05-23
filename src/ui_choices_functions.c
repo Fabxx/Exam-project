@@ -176,38 +176,44 @@ void ui_edit_image(user creator) {
     images_n = ui_upload_list(creator, found_list);
 
     while(choice > images_n) {
-        puts("Select the image you want to edit:\n");
+        puts("Select the image you want to edit. 0 to cancel:\n");
         scanf("%d", &choice);
         fflush(stdin);
 
         if(choice <= images_n && choice > 0) {
+
             rewind(fileptr);
             fseek(fileptr, sizeof(image) * (choice -1), SEEK_SET);
             current_image = nextImage(fileptr);
             fseek(fileptr, sizeof(image) * (choice -1), SEEK_SET);
-                
-            ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);
-            fwrite(current_image.title, TITLE_SIZE, 1,  fileptr);
 
-            ui_edit_image_element("Image format (Leave blank for no change) ", current_image.file_type, F_TYPE);
-            fwrite(current_image.file_type, F_TYPE, 1,  fileptr);
+            if(strcmp(creator.username, current_image.author) == 0){
+                ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);
+                fwrite(current_image.title, TITLE_SIZE, 1,  fileptr);
 
-            ui_edit_image_element("File name (Leave blank for no change) ", current_image.file_name, NAME_SIZE);
-            fwrite(current_image.file_name, NAME_SIZE, 1,  fileptr);
+                ui_edit_image_element("Image format (Leave blank for no change) ", current_image.file_type, F_TYPE);
+                fwrite(current_image.file_type, F_TYPE, 1,  fileptr);
 
-            for(i = 0; i < KEYS; i++) {
-                ui_edit_image_element("Insert a keyword (Leave blank to stop editing) ", current_image.keywords[i], KEY_LENGHT);
-                if(strcmp(current_image.keywords[i], "") == 0){
-                    i = KEYS; //exit loop
+                ui_edit_image_element("File name (Leave blank for no change) ", current_image.file_name, NAME_SIZE);
+                fwrite(current_image.file_name, NAME_SIZE, 1,  fileptr);
+
+                for(i = 0; i < KEYS; i++) {
+                    ui_edit_image_element("Insert a keyword (Leave blank to stop editing) ", current_image.keywords[i], KEY_LENGHT);
+                    if(strcmp(current_image.keywords[i], "") == 0){
+                        i = KEYS; //exit loop
+                    }
                 }
+                fwrite(current_image.keywords, KEY_LENGHT * KEYS, 1, fileptr);
+
+            }else{
+                puts("That is not your image.\n");
             }
-            fwrite(current_image.keywords, KEY_LENGHT * KEYS, 1, fileptr);
                 
-           
         }
 
     }
-        fclose(fileptr);
+
+    fclose(fileptr);
 }
 
 void ui_download_image(user creator) {

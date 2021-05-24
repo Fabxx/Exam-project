@@ -290,3 +290,34 @@ void ui_download_image(user creator) {
         fclose(fileptr);
 }
 
+void ui_rate_image() {
+
+    user current_user;
+    image *imagePtr;
+    FILE *fileptr;
+    int foundList[40];
+    int choice;
+    fileptr = fopen("images.dat", "r+b");
+
+    ui_upload_list(current_user, foundList);
+
+    puts("Select the image you want to vote\n");
+    scanf("%d", &choice);
+
+    /*
+    To each the exact parameter we want to edit, we need to get the initial size of the image
+    then for each parameter we sum the size of them with the constans assigned, to reach the vote
+    parameter. An image weights 260 bytes, to reach vote we need to get the size of 650 bytes*/
+
+
+    fseek(fileptr, (sizeof(image) + TITLE_SIZE + F_TYPE + (KEY_LENGHT * KEYS)), SEEK_SET);
+    puts("Insert the vote, put 0 to leave empty\n");
+    scanf("%f", imagePtr->vote);
+    if (imagePtr->vote <= 0) {
+
+
+        //!fwrite(imagePtr->vote, sizeof(float), 1, fileptr);
+    }
+
+}
+

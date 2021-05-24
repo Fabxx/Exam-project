@@ -85,4 +85,19 @@ void removeImage(image toRemove){
     fclose(images);
 }
 
+void showImage(image source){
+    int i;
 
+    printf("Title: %s (%s) <%s> - By %s\nKeywords: ", source.title, source.author, source.file_type, source.file_name);
+    for(i = 0; i < KEYS; i++){
+        if(strcmp(source.keywords[i], "\n") != 0){
+            printf("%s - ",source.keywords[i]);
+        }else{
+            i = KEYS;
+            printf("\n");
+        }
+        
+    }
+    printf("Downloaded %d times. Rated %.1f/5 (?)\n", source.downloads, source.vote);
+
+}

@@ -6,37 +6,42 @@
 
 void ui_search_image() {
 
-    int foundList[SEARCH_MAX_SIZE];
-    image currentImage;
-    int found;
+    int found_list[SEARCH_MAX_SIZE];
+    image current_image;
+    int found, choice;
     int i, j, foundImages = 0;
     FILE* images;
 
     images = fopen("images.dat","rb");
 
+    //Inserimeto del termine di ricerca
     char string[TITLE_SIZE];
     puts("Insert search term: ");
     fgets(string, TITLE_SIZE, stdin);
     string[strlen(string) - 1] = 0;
 
+    //Inizio della ricerca delle immagini
     i = 0;
     while(!feof(images) && images != NULL) {
-        currentImage = nextImage(images);
+        //Prendi la prossima immagine
+        current_image = nextImage(images);
         if(!feof(images)){
+            //Controlla se è nei termini di ricerca
             found = 1;
-            if(strstr(currentImage.title, string) == NULL){
-                if(strstr(currentImage.author, string) == NULL){
+            if(strstr(current_image.title, string) == NULL){
+                if(strstr(current_image.author, string) == NULL){
                     found = 0;
                     for(j = 0; j < KEYS && found == 0; j++){
-                        if(strstr(currentImage.keywords[j], string) != NULL){
+                        if(strstr(current_image.keywords[j], string) != NULL){
                             found = 1;
                         }
                     }
                 }
             }
 
+            //Se è nei termini di ricerca, ricorda la sua posizione
             if(found == 1) {
-                foundList[foundImages] = i;
+                found_list[foundImages] = i;
                 foundImages++;
             }
 
@@ -45,13 +50,35 @@ void ui_search_image() {
         
     }
 
+    //Mostra tutte le immagini trovate
     rewind(images);
     for(i = 0; i < foundImages; i++) {
-        fseek(images, sizeof(image) * foundList[i], SEEK_SET);
-        currentImage = nextImage(images);
-        printf("%s\n",currentImage.title);
+        fseek(images, sizeof(image) * found_list[i], SEEK_SET);
+        current_image = nextImage(images);
+        printf("%d) %s By %s\n", i + 1, current_image.title, current_image.author);
     }
     printf("End of the search\n");
+    
+    //Permetti la scelta di visualizzare una immagine trovata
+    choice = INT_MAX;
+    while(foundImages > 0 && choice > foundImages){
+        printf("Choose the image you want to see. 0 to cancel: ");
+        scanf("%d", &choice);
+        fflush(stdin);
+
+        if(choice <= foundImages && choice > 0) {
+
+            rewind(images);
+            fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
+            current_image = nextImage(images);
+
+            showImage(current_image);
+
+            //TODO download e valutazione
+        }
+
+    }
+    
 
     fclose(images);
 }

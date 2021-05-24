@@ -24,7 +24,7 @@ image nextImage(FILE* source){
     image data;
 
     fread(&data, sizeof(image), 1, source);
-    
+
     return data;
 }
 

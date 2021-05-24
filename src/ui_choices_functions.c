@@ -188,8 +188,9 @@ int ui_upload_list(user creator, int foundList[]) {
                 "File type:%s\t"
                 "File name:%s\t"
                 "Number of Downloads:%d\t"
-                "Author:%s \n", i, currentImage.title, currentImage.file_type,
-                                    currentImage.file_name, currentImage.downloads, currentImage.author);
+                "Author:%s \n"
+                "NUmber of votes:%d \n", i, currentImage.title, currentImage.file_type,
+                                    currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
             } 
             j++;
         }
@@ -281,12 +282,8 @@ void ui_download_image(user creator) {
                 current_image.downloads++;
                 writeImage(current_image, fileptr);
             }
-
-        }
-
-                
+        }   
     }
-
         fclose(fileptr);
 }
 
@@ -310,14 +307,21 @@ void ui_rate_image() {
     parameter. An image weights 260 bytes, to reach vote we need to get the size of 650 bytes*/
 
 
-    fseek(fileptr, (sizeof(image) + TITLE_SIZE + F_TYPE + (KEY_LENGHT * KEYS)), SEEK_SET);
+    fseek(fileptr, (sizeof(image) * choice -1 + TITLE_SIZE + F_TYPE + (KEY_LENGHT * KEYS)), SEEK_SET);
     puts("Insert the vote, put 0 to leave empty\n");
     scanf("%f", imagePtr->vote);
-    if (imagePtr->vote <= 0) {
+    if (imagePtr->vote != 0) {
+        fwrite(&imagePtr->vote, sizeof(float), 1, fileptr);
+        imagePtr->num_votes++;
+        fwrite(&imagePtr->num_votes, sizeof(int), 1, fileptr);
 
+        imagePtr->average += imagePtr->vote;
+        imagePtr->average /= imagePtr->num_votes;
 
-        //!fwrite(imagePtr->vote, sizeof(float), 1, fileptr);
+        fwrite(&imagePtr->average, sizeof(float), 1, fileptr);
+    
     }
 
+    fclose(fileptr);
 }
 

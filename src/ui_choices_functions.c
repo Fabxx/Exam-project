@@ -6,7 +6,7 @@
 
 void ui_search_image() {
 
-    image foundList[10];
+    int foundList[SEARCH_MAX_SIZE];
     image currentImage;
     int found;
     int i, j, foundImages = 0;
@@ -22,26 +22,34 @@ void ui_search_image() {
     i = 0;
     while(!feof(images) && images != NULL) {
         currentImage = nextImage(images);
-        found = 1;
-        if(strstr(currentImage.title, string) == NULL){
-            if(strstr(currentImage.author, string) == NULL){
-                found = 0;
-                for(j = 0; j < KEYS && found == 0; j++){
-                    if(strstr(currentImage.keywords[j], string) != NULL){
-                        found = 1;
+        if(!feof(images)){
+            found = 1;
+            if(strstr(currentImage.title, string) == NULL){
+                if(strstr(currentImage.author, string) == NULL){
+                    found = 0;
+                    for(j = 0; j < KEYS && found == 0; j++){
+                        if(strstr(currentImage.keywords[j], string) != NULL){
+                            found = 1;
+                        }
                     }
                 }
             }
-        }
 
-        if(found == 1) {
-            foundList[foundImages] = currentImage;
-            foundImages++;
+            if(found == 1) {
+                foundList[foundImages] = i;
+                foundImages++;
+            }
+
+            i++;
         }
+        
     }
 
-    for(i = 0; i < IMAGES; i++) {
-        printf("%s\n",foundList[i].title);
+    rewind(images);
+    for(i = 0; i < foundImages; i++) {
+        fseek(images, sizeof(image) * foundList[i], SEEK_SET);
+        currentImage = nextImage(images);
+        printf("%s\n",currentImage.title);
     }
     printf("End of the search\n");
 

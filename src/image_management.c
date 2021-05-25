@@ -34,18 +34,18 @@ int imageCompare(image source1, image source2){
 
     if(strcmp(source1.author, source2.author) == 0) {
 
-        if(source1.downloads == source2.downloads){
+        if(source1.downloads == source2.downloads) {
 
-            if(strcmp(source1.file_name, source2.file_name) == 0){
+            if(strcmp(source1.file_name, source2.file_name) == 0) {
 
-                if(strcmp(source1.file_type, source2.file_type) == 0){
+                if(strcmp(source1.file_type, source2.file_type) == 0) {
 
                     if(source1.vote == source2.vote){
 
-                        if(strcmp(source1.title, source2.title) == 0){
+                        if(strcmp(source1.title, source2.title) == 0) {
                             equals = 1;
-                            for(i = 0; i < KEYS; i++){
-                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0){
+                            for(i = 0; i < KEYS; i++) {
+                                if(strcmp(source1.keywords[i], source2.keywords[i]) == 0) {
                                     equals = 1;
                                 }
                             }
@@ -102,8 +102,10 @@ void showImage(image source){
 
 }
 
-image downloadImage(image toDownload){
-    toDownload.downloads++;
-    printf("Downloaded %s\n",toDownload.file_name);
-    return toDownload;
+void downloadImage(image* toDownload) {
+    
+    toDownload->downloads++;
+    printf("Downloaded %s\n",toDownload->file_name);
+
+    //TODO add logging
 }

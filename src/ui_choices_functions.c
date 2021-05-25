@@ -82,7 +82,11 @@ void ui_search_image() {
 
                 switch(decision){
                     case 1:{
-                        //TODO DOWNLOAD
+                        downloadImage(&current_image);
+
+                        fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
+                        writeImage(current_image, images);
+
                         break;
                     }
                     case 2:{

@@ -42,6 +42,8 @@ typedef struct {
     char file_name[NAME_SIZE]; 
     char keywords[KEY_LENGHT][KEYS]; //KEY_LENGHT = lunghezza parole, KEYS n parole.
     float vote;
+    int num_votes;
+    float average;
     int downloads;
     char author[ID_LENGHT];
     

@@ -88,7 +88,7 @@ void removeImage(image toRemove){
 void showImage(image source){
     int i;
 
-    printf("Title: %s (%s) <%s> - By %s\nKeywords: ", source.title, source.author, source.file_type, source.file_name);
+    printf("Title: %s (%s) <%s> - By %s\nKeywords: ", source.title, source.file_name, source.file_type, source.author);
     for(i = 0; i < KEYS; i++){
         if(strcmp(source.keywords[i], "\n") != 0){
             printf("%s - ",source.keywords[i]);
@@ -98,14 +98,16 @@ void showImage(image source){
         }
         
     }
-    printf("Downloaded %d times. Rated %.1f/5 (?)\n", source.downloads, source.vote);
+    printf("Downloaded %d times. Rated %.1f/5 (%d)\n", source.downloads, source.vote, source.num_votes);
 
 }
 
-void downloadImage(image* toDownload) {
+image downloadImage(image toDownload) {
     
-    toDownload->downloads++;
-    printf("Downloaded %s\n",toDownload->file_name);
+    toDownload.downloads++;
+    printf("Downloaded %s\n",toDownload.file_name);
+
+    return toDownload;
 
     //TODO add logging
 }

@@ -37,8 +37,6 @@ void ui_user() {
     puts("Select the desired option\n"
          "1)Search for an image\n"
          "2)View download list\n"
-         "3)Download an image\n"
-         "4)Rate an image\n"
-         "5)Exit\n");
+         "3)Exit\n");
         
 }

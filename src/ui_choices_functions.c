@@ -12,7 +12,7 @@ void ui_search_image() {
     int i, j, foundImages = 0;
     FILE* images;
 
-    images = fopen("images.dat","rb");
+    images = fopen("images.dat","r+b");
 
     //Inserimeto del termine di ricerca
     char string[TITLE_SIZE];
@@ -82,7 +82,7 @@ void ui_search_image() {
 
                 switch(decision){
                     case 1:{
-                        downloadImage(&current_image);
+                        current_image = downloadImage(current_image);
 
                         fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
                         writeImage(current_image, images);
@@ -109,7 +109,7 @@ void ui_most_downloaded() {
 
     image foundList[10];
     image tmp;
-    int i = 0, j = 0;
+    int i = 0, j = 0, k = 0;
     FILE *fileptr;
     fileptr = fopen("images.dat", "rb");
 
@@ -121,11 +121,14 @@ void ui_most_downloaded() {
                 i++;
 
         }
+
         for(j = 0; j < i-1; j++){
-            if(foundList[j].downloads > foundList[j+1].downloads) {
-                tmp = foundList[j];
-                foundList[j] = foundList[j+1];
-                foundList[j+1] = tmp;
+            for(k = j+1; k < i; k++){
+                if(foundList[j].downloads < foundList[k].downloads) {
+                    tmp = foundList[j];
+                    foundList[j] = foundList[k];
+                    foundList[k] = tmp;
+                }
             }
         }
 
@@ -182,6 +185,7 @@ void ui_upload(user creator) {
 
     strcpy(new_image.author, creator.username);
     new_image.vote = 0;
+    new_image.num_votes = 0;
     new_image.downloads = 0;
 
     writeImage(new_image, images);
@@ -272,41 +276,6 @@ void ui_edit_image(user creator) {
     }
 
     fclose(fileptr);
-}
-
-void ui_download_image(user creator) {
-
-    image foundList[10];    //TODO necesario implementare nuovo metodo di ricerca
-    image current_image;
-    int images_n, found;
-    FILE *fileptr;
-    fileptr = fopen("images.dat", "r+b");
-    int choice = INT_MAX;
-    
-
-    images_n = ui_upload_list(creator, foundList);
-
-    while(choice > images_n) {
-        puts("Select the image you want to download:\n");
-        scanf("%d", &choice);
-        fflush(stdin);
-
-        if(choice <= images_n && choice > 0){
-            found = 0;
-            while(found == 0 && !feof(fileptr)) {
-                current_image = nextImage(fileptr);
-                found = imageCompare(current_image, foundList[choice - 1]);
-                
-            }
-            if(found == 1) {
-                //prendiamo la posizione nel file, mediante la dimensione della struttura di riferimento dei dati.
-                fseek(fileptr, (long) (sizeof(image)) * -1, SEEK_SET);
-                current_image.downloads++;
-                writeImage(current_image, fileptr);
-            }
-        }   
-    }
-        fclose(fileptr);
 }
 
 void ui_rate_image() {

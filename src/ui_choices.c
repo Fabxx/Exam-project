@@ -49,7 +49,7 @@ void ui_choices_user() {
 
     getUserData(&currentUser, 0);
 
-    while(decision != 5) {
+    while(decision != 3) {
 
         ui_user();
         scanf("%d", &decision);
@@ -63,11 +63,6 @@ void ui_choices_user() {
             case 2: {
                 ui_most_downloaded();
                 break;
-            }
-            case 3: { 
-                ui_download_image(currentUser);
-                break;
-
             }
             case 4: {
                 ui_rate_image(currentUser);

@@ -195,6 +195,9 @@ void ui_upload(user creator) {
         if(strcmp(new_image.keywords[i], "\n") == 0){
             i = KEYS;
         }
+
+        charptr = strstr(new_image.keywords[i], "\n");
+        *charptr = 0;
     }
 
     strcpy(new_image.author, creator.username);

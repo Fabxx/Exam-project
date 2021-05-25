@@ -103,7 +103,9 @@ void ui_search_image() {
 
                         }while(user_vote < 0 || user_vote > 5);
 
-                        addImageVote(current_image, user_vote, found_list[choice - 1], images);
+                        if (user_vote != 0) {
+                            addImageVote(current_image, user_vote, found_list[choice - 1], images);
+                        }
 
                         break;
                     }

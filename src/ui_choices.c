@@ -64,10 +64,6 @@ void ui_choices_user() {
                 ui_most_downloaded();
                 break;
             }
-            case 4: {
-                ui_rate_image(currentUser);
-                break;
-            }
         }
     }
 }

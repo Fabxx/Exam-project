@@ -102,14 +102,19 @@ void showImage(image source){
 
 }
 
-image downloadImage(image toDownload) {
+image downloadImage(image toDownload, user performer) {
+    //TODO aggiungere timestamp accanto agli eventi. se abbiamo tempo
+
+    FILE* log;
     
     toDownload.downloads++;
     printf("Downloaded %s\n",toDownload.file_name);
 
-    return toDownload;
+    log = fopen("downloads.log","a");
+    fprintf(log, "%s (%s) downloaded %s By %s\n", performer.username, performer.job, toDownload.title, toDownload.author);
+    fclose(log);
 
-    //TODO add logging
+    return toDownload;
 }
 
 void addImageVote(image current_image, float image_vote, int img_position ,FILE* images){

@@ -3,7 +3,7 @@
 #include "struct.h"
 
 
-void ui_search_image();
+void ui_search_image(user);
 void ui_most_downloaded();
 void ui_upload(user creator);
 void ui_edit_image(user creator);

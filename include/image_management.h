@@ -30,7 +30,7 @@ void removeImage(image);
 int imageCompare(image source1, image source2);
 
 void showImage(image);
-image downloadImage(image);
+image downloadImage(image, user);
 void addImageVote(image, float, int, FILE*);
 
 #endif

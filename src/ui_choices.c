@@ -57,7 +57,7 @@ void ui_choices_user() {
 
         switch (decision) {
             case 1: {
-                ui_search_image();
+                ui_search_image(currentUser);
                 break;
             }
             case 2: {

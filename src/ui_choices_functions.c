@@ -4,7 +4,7 @@
 #include "../include/image_management.h"
 #include "../include/ui_edit_element.h"
 
-void ui_search_image() {
+void ui_search_image(user performer) {
 
     int found_list[SEARCH_MAX_SIZE];
     image current_image;
@@ -86,7 +86,7 @@ void ui_search_image() {
                 switch(decision){
                     case 1:{
                         //Download
-                        current_image = downloadImage(current_image);
+                        current_image = downloadImage(current_image, performer);
 
                         fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
                         writeImage(current_image, images);
@@ -119,7 +119,7 @@ void ui_search_image() {
     fclose(images);
 }
 
-void ui_most_downloaded() { //TODO aggiungere supporto a + di 10 immagini.
+void ui_most_downloaded() { 
 
     image foundList[10];
     image tmp;
@@ -145,6 +145,8 @@ void ui_most_downloaded() { //TODO aggiungere supporto a + di 10 immagini.
                 }
             }
         }
+
+        //TODO aggiungere supporto per più di 10 immagini
 
         printf("Download list:\n");
         for (j = 0; j<i; j++) {

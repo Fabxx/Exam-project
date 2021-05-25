@@ -1,6 +1,8 @@
 
 #include "../include/libraries.h"
 
+//TODO aggiungere (forse) funzione login
+/*
 void ui_main() {
 
 
@@ -12,6 +14,8 @@ void ui_main() {
           "2) Existing account\n"
           "3) Exit\n");
 }
+*/
+
 
 void ui_creator() {
 
@@ -21,7 +25,7 @@ void ui_creator() {
          "2)View uploaded images\n"
          "3)Remove image\n"
          "4)Edit image information\n"
-         "5)Exit\n");
+         "5)Return to main menu\n");
 }
 
 void ui_mode_selection() {
@@ -37,6 +41,6 @@ void ui_user() {
     puts("Select the desired option\n"
          "1)Search for an image\n"
          "2)View download list\n"
-         "3)Exit\n");
+         "3)Return to main menu\n");
         
 }

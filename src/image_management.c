@@ -69,7 +69,7 @@ void removeImage(image toRemove){
         currentImage = nextImage(images);
 
         if(imageCompare(toRemove, currentImage) == 1){
-
+            
             //I don't feel confident about this one.
             while(!feof(images)){
                 fseek(images, (long) (sizeof(image)) * -1, SEEK_CUR); //Return to position of image to be deleted, go back 1 image
@@ -110,4 +110,23 @@ image downloadImage(image toDownload) {
     return toDownload;
 
     //TODO add logging
+}
+
+void addImageVote(image current_image, float image_vote, int img_position ,FILE* images){
+
+    /*
+    To each the exact parameter we want to edit, we need to get the initial size of the image
+    then for each parameter we sum the size of them with the constans assigned, to reach the vote
+    parameter. An image weights 260 bytes, to reach vote we need to get the size of 650 bytes*/
+    fseek(images, sizeof(image) * img_position + VOTE_POS, SEEK_SET);
+  
+    if (image_vote != 0) {
+        current_image.vote = ((current_image.vote * current_image.num_votes) + image_vote) / (current_image.num_votes + 1);
+        current_image.num_votes++;
+
+        fwrite(&current_image.vote, sizeof(float), 1, images);
+        fwrite(&current_image.num_votes, sizeof(int), 1, images);
+                           
+    }
+
 }

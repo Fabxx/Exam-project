@@ -12,6 +12,8 @@ void ui_search_image() {
     int i, j, foundImages = 0;
     FILE* images;
 
+    float user_vote = 0;
+
     images = fopen("images.dat","r+b");
 
     //Inserimeto del termine di ricerca
@@ -72,6 +74,7 @@ void ui_search_image() {
             fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
             current_image = nextImage(images);
 
+            //Visualizza l'immagine trovata
             showImage(current_image);
 
             decision = 0;
@@ -82,6 +85,7 @@ void ui_search_image() {
 
                 switch(decision){
                     case 1:{
+                        //Download
                         current_image = downloadImage(current_image);
 
                         fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
@@ -90,13 +94,21 @@ void ui_search_image() {
                         break;
                     }
                     case 2:{
-                        //TODO RATE
+                        //Valutazione
+                        user_vote = 0;
+                        do{
+                            puts("Insert the vote 1 to 5, put 0 to leave empty\n");
+                            scanf("%f", &user_vote);
+                            fflush(stdin);
+
+                        }while(user_vote < 0 || user_vote > 5);
+
+                        addImageVote(current_image, user_vote, found_list[choice - 1], images);
+
                         break;
                     }
                 }
             }while(decision > 2);
-
-            //TODO download e valutazione
         }
 
     }
@@ -105,7 +117,7 @@ void ui_search_image() {
     fclose(images);
 }
 
-void ui_most_downloaded() {
+void ui_most_downloaded() { //TODO aggiungere supporto a + di 10 immagini.
 
     image foundList[10];
     image tmp;
@@ -194,7 +206,7 @@ void ui_upload(user creator) {
 
 }
 
-int ui_upload_list(user creator, int foundList[]) {
+int ui_creator_upload_list(user creator, int foundList[]) {
 
     image currentImage;
     int i = 0, j = 0;
@@ -235,7 +247,7 @@ void ui_edit_image(user creator) {
     FILE *fileptr;
     fileptr = fopen("images.dat", "r+b");
     
-    images_n = ui_upload_list(creator, found_list);
+    images_n = ui_creator_upload_list(creator, found_list);
 
     while(choice > images_n) {
         puts("Select the image you want to edit. 0 to cancel:\n");
@@ -277,42 +289,3 @@ void ui_edit_image(user creator) {
 
     fclose(fileptr);
 }
-
-void ui_rate_image() {
-
-    user current_user;
-    image *imagePtr = NULL;
-    FILE *fileptr;
-    int foundList[40];
-    int choice;
-    fileptr = fopen("images.dat", "r+b");
-
-    ui_upload_list(current_user, foundList);
-
-    puts("Select the image you want to vote\n");
-    scanf("%d", &choice);
-
-    /*
-    To each the exact parameter we want to edit, we need to get the initial size of the image
-    then for each parameter we sum the size of them with the constans assigned, to reach the vote
-    parameter. An image weights 260 bytes, to reach vote we need to get the size of 650 bytes*/
-
-
-    fseek(fileptr, (sizeof(image) * choice -1 + TITLE_SIZE + F_TYPE + (KEY_LENGHT * KEYS)), SEEK_SET);
-    puts("Insert the vote, put 0 to leave empty\n");
-    scanf("%f", &imagePtr->vote);
-    if (imagePtr->vote != 0) {
-        fwrite(&imagePtr->vote, sizeof(float), 1, fileptr);
-        imagePtr->num_votes++;
-        fwrite(&imagePtr->num_votes, sizeof(int), 1, fileptr);
-
-        imagePtr->average += imagePtr->vote;
-        imagePtr->average /= imagePtr->num_votes;
-
-        fwrite(&imagePtr->average, sizeof(float), 1, fileptr);
-    
-    }
-
-    fclose(fileptr);
-}
-

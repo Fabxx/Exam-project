@@ -28,5 +28,6 @@ image nextImage(FILE* source);
 void removeImage(image);
 int imageCompare(image source1, image source2);
 void showImage(image);
+image downloadImage(image);
 
 #endif

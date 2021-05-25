@@ -101,3 +101,9 @@ void showImage(image source){
     printf("Downloaded %d times. Rated %.1f/5 (?)\n", source.downloads, source.vote);
 
 }
+
+image downloadImage(image toDownload){
+    toDownload.downloads++;
+    printf("Downloaded %s\n",toDownload.file_name);
+    return toDownload;
+}

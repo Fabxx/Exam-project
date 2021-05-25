@@ -49,7 +49,7 @@ void ui_choices_user() {
 
     getUserData(&currentUser, 0);
 
-    while(decision != 4) {
+    while(decision != 5) {
 
         ui_user();
         scanf("%d", &decision);

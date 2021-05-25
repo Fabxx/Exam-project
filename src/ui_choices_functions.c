@@ -290,7 +290,7 @@ void ui_download_image(user creator) {
 void ui_rate_image() {
 
     user current_user;
-    image *imagePtr;
+    image *imagePtr = NULL;
     FILE *fileptr;
     int foundList[40];
     int choice;
@@ -309,7 +309,7 @@ void ui_rate_image() {
 
     fseek(fileptr, (sizeof(image) * choice -1 + TITLE_SIZE + F_TYPE + (KEY_LENGHT * KEYS)), SEEK_SET);
     puts("Insert the vote, put 0 to leave empty\n");
-    scanf("%f", imagePtr->vote);
+    scanf("%f", &imagePtr->vote);
     if (imagePtr->vote != 0) {
         fwrite(&imagePtr->vote, sizeof(float), 1, fileptr);
         imagePtr->num_votes++;

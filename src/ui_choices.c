@@ -61,7 +61,7 @@ void ui_choices_user() {
                 break;
             }
             case 2: {
-                ui_most_downloaded();
+                ui_most_downloaded(currentUser);
                 break;
             }
         }

@@ -117,7 +117,9 @@ image downloadImage(image toDownload, user performer) {
     return toDownload;
 }
 
-void addImageVote(image current_image, float image_vote, int img_position ,FILE* images){
+void addImageVote(image current_image, float image_vote, int img_position ,FILE* images, user performer){
+
+    FILE* log;
 
     /*
     To each the exact parameter we want to edit, we need to get the initial size of the image
@@ -134,6 +136,8 @@ void addImageVote(image current_image, float image_vote, int img_position ,FILE*
     fwrite(&current_image.vote, sizeof(float), 1, images);
     fwrite(&current_image.num_votes, sizeof(int), 1, images);
     
-
+    log = fopen("votes.log","a");
+    fprintf(log, "%s (%s) voted %s By %s %.1f/5\n", performer.username, performer.job, current_image.title, current_image.author, image_vote);
+    fclose(log);
 
 }

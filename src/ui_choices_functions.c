@@ -8,7 +8,7 @@ void ui_search_image() {
 
     int found_list[SEARCH_MAX_SIZE];
     image current_image;
-    int found, choice;
+    int found, choice, decision;
     int i, j, foundImages = 0;
     FILE* images;
 
@@ -73,6 +73,24 @@ void ui_search_image() {
             current_image = nextImage(images);
 
             showImage(current_image);
+
+            decision = 0;
+            do{
+                printf("Choose an action\n1) Download\n2) Rate\n0) No action\n");
+                scanf("%d",&decision);
+                fflush(stdin);
+
+                switch(decision){
+                    case 1:{
+                        //TODO DOWNLOAD
+                        break;
+                    }
+                    case 2:{
+                        //TODO RATE
+                        break;
+                    }
+                }
+            }while(decision > 2);
 
             //TODO download e valutazione
         }

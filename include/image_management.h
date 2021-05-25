@@ -23,6 +23,7 @@
 #include "struct.h"
 
 int imageFileInit();
+
 void writeImage(image newImage, FILE* dest);
 image nextImage(FILE* source);
 void removeImage(image);
@@ -30,6 +31,6 @@ int imageCompare(image source1, image source2);
 
 void showImage(image);
 image downloadImage(image);
-void addImageVOte(image, float, int, FILE*);
+void addImageVote(image, float, int, FILE*);
 
 #endif

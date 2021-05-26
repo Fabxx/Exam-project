@@ -4,6 +4,7 @@
 #include "../include/image_management.h"
 #include "../include/ui_edit_element.h"
 
+
 void ui_search_image(user performer) {
 
     int found_list[SEARCH_MAX_SIZE];
@@ -127,46 +128,48 @@ void ui_most_downloaded() {
     FILE *fileptr;
     fileptr = fopen("images.dat", "rb");
 
-    if(fileptr != NULL){
+    if(fileptr != NULL) {
         while(!feof(fileptr) && i < 10) {
 
             fread(&foundList[i], sizeof(image), 1, fileptr);
-            if(!feof(fileptr))
+            if(!feof(fileptr)) {
                 i++;
-
+            }
         }
 
-        for(j = 0; j < i-1; j++){
-            for(k = j+1; k < i; k++){
-                if(foundList[j].downloads < foundList[k].downloads) {
+        for(j = 0; j < i-1; j++) {
+            for(k = j+1; k < i; k++) {
+                 if(foundList[j].downloads < foundList[k].downloads) {
                     tmp = foundList[j];
                     foundList[j] = foundList[k];
                     foundList[k] = tmp;
+
                 }
             }
         }
+    }
 
         //TODO aggiungere supporto per più di 10 immagini
 
         printf("Download list:\n");
-        for (j = 0; j<i; j++) {
+        for (j = 0; j < i; j++) {
 
             printf("Title:%s\t"
                 "File type:%s\t"
                 "File name:%s\t"
                 "Number of Downloads:%d\n", foundList[j].title, foundList[j].file_type,
                                         foundList[j].file_name, foundList[j].downloads);
-
         }
-    }
         fclose(fileptr);
-}
+    }
+        
+
 
 void ui_upload(user creator) {
     image new_image;
     int i;
     FILE* images;
-    char* charptr;
+    char* charptr = NULL;
 
     images = fopen("images.dat", "a+b");
 
@@ -194,12 +197,13 @@ void ui_upload(user creator) {
         puts("Insert a keyword, leave blank to continue: ");
         fgets(new_image.keywords[i], KEY_LENGHT, stdin);
 
-        if(strcmp(new_image.keywords[i], "\n") == 0){
+        charptr = strstr(new_image.keywords[i], "\n");
+        *charptr = 0;
+
+        if(strcmp(new_image.keywords[i], "") == 0){
             i = KEYS;
         }
 
-        charptr = strstr(new_image.keywords[i], "\n");
-        *charptr = 0;
     }
 
     strcpy(new_image.author, creator.username);
@@ -233,7 +237,7 @@ int ui_creator_upload_list(user creator, int foundList[]) {
                 "File type:%s\t"
                 "File name:%s\t"
                 "Number of Downloads:%d\t"
-                "Author:%s \n"
+                "Author:%s \t"
                 "NUmber of votes:%d \n", i, currentImage.title, currentImage.file_type,
                                     currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
             } 
@@ -295,4 +299,30 @@ void ui_edit_image(user creator) {
     }
 
     fclose(fileptr);
+}
+
+void ui_delete_image(user creator){
+    int found_list[SEARCH_MAX_SIZE];
+    int images_n;
+    int choice = INT_MAX;
+
+    image current_image;
+    
+    FILE *fileptr;
+    fileptr = fopen("images.dat", "rb");
+
+    images_n = ui_creator_upload_list(creator, found_list);
+
+    while(choice > images_n) {
+        puts("Select the image you want to delete. 0 to cancel:\n");
+        scanf("%d", &choice);
+        fflush(stdin);
+
+        if(choice <= images_n && choice > 0) {
+            fseek(fileptr, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
+            current_image = nextImage(fileptr);
+
+            removeImage(current_image);
+        }
+    }
 }

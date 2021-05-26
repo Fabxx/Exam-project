@@ -59,6 +59,39 @@ int imageCompare(image source1, image source2){
 }
 
 void removeImage(image toRemove){
+
+    image currentImage;
+    FILE* fileptr;
+    FILE* filetmp;
+
+    int done = 0;
+
+    fileptr = fopen("images.dat","r+b");
+    filetmp = fopen("temp","w+b");
+
+    while(!feof(fileptr) && done == 0) {
+        fread(&currentImage, sizeof(image), 1, fileptr);
+        if(imageCompare(currentImage, toRemove) == 0){
+            fwrite(&currentImage, sizeof(image), 1, filetmp);
+        }
+    }
+
+    fclose(fileptr);
+    fileptr = fopen("images.dat","w+b");
+    rewind(filetmp);
+
+    while(!feof(filetmp)){
+        fread(&currentImage, sizeof(image), 1, filetmp);
+        fwrite(&currentImage, sizeof(image), 1, fileptr);
+    }
+
+    fclose(fileptr);
+    fclose(filetmp);
+    remove("temp");
+}
+
+/*
+void removeImage(image toRemove){
     int success = 0;
     FILE* images;
     image currentImage;
@@ -84,13 +117,14 @@ void removeImage(image toRemove){
 
     fclose(images);
 }
+*/
 
 void showImage(image source){
     int i;
 
     printf("Title: %s (%s) <%s> - By %s\nKeywords: ", source.title, source.file_name, source.file_type, source.author);
     for(i = 0; i < KEYS; i++){
-        if(strcmp(source.keywords[i], "\n") != 0){
+        if(strcmp(source.keywords[i], "") != 0){
             printf("%s - ",source.keywords[i]);
         }else{
             i = KEYS;

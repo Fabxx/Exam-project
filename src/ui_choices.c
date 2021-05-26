@@ -91,7 +91,7 @@ void ui_choices_creator() {
                 break;
             }
             case 3: {
-                //Remove image
+                ui_delete_image(currentUser);
                 break;
             }
             case 4: {

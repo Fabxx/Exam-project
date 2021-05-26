@@ -305,8 +305,6 @@ void ui_delete_image(user creator){
     int found_list[SEARCH_MAX_SIZE];
     int images_n;
     int choice = INT_MAX;
-
-    image current_image;
     
     FILE *fileptr;
     fileptr = fopen("images.dat", "rb");
@@ -319,10 +317,7 @@ void ui_delete_image(user creator){
         fflush(stdin);
 
         if(choice <= images_n && choice > 0) {
-            fseek(fileptr, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
-            current_image = nextImage(fileptr);
-
-            removeImage(current_image);
+            removeImage(found_list[choice - 1]);
         }
     }
 }

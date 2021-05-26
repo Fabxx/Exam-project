@@ -58,31 +58,34 @@ int imageCompare(image source1, image source2){
     return equals;
 }
 
-void removeImage(image toRemove){
+void removeImage(int position){
 
     image currentImage;
     FILE* fileptr;
     FILE* filetmp;
 
-    int done = 0;
+    int i = 0;
 
     fileptr = fopen("images.dat","r+b");
     filetmp = fopen("temp","w+b");
 
-    while(!feof(fileptr) && done == 0) {
+    while(!feof(fileptr)) {
         fread(&currentImage, sizeof(image), 1, fileptr);
-        if(imageCompare(currentImage, toRemove) == 0){
+        if(i != position && !feof(fileptr)){
             fwrite(&currentImage, sizeof(image), 1, filetmp);
         }
+        i++;
     }
 
     fclose(fileptr);
-    fileptr = fopen("images.dat","w+b");
+    fileptr = fopen("images.dat","wb");
     rewind(filetmp);
 
     while(!feof(filetmp)){
         fread(&currentImage, sizeof(image), 1, filetmp);
-        fwrite(&currentImage, sizeof(image), 1, fileptr);
+        if(!feof(filetmp)){
+            fwrite(&currentImage, sizeof(image), 1, fileptr);
+        }
     }
 
     fclose(fileptr);

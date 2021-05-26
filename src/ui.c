@@ -5,7 +5,6 @@
 void ui_creator() {
 
     puts("Select the desired option\n"
-
          "1)Upload an image\n"
          "2)View uploaded images\n"
          "3)Remove image\n"

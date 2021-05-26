@@ -2,7 +2,6 @@
 #include "../include/ui_choices_functions.h"
 #include "../include/struct.h"
 #include "../include/image_management.h"
-#include "../include/ui_edit_element.h"
 
 
 void ui_search_image(user performer) {
@@ -87,10 +86,7 @@ void ui_search_image(user performer) {
                 switch(decision){
                     case 1:{
                         //Download
-                        current_image = downloadImage(current_image, performer);
-
-                        fseek(images, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
-                        writeImage(current_image, images);
+                        downloadImage(current_image, found_list[choice - 1], images, performer);
 
                         break;
                     }
@@ -211,7 +207,7 @@ void ui_upload(user creator) {
     new_image.num_votes = 0;
     new_image.downloads = 0;
 
-    writeImage(new_image, images);
+    writeImage(new_image, images, creator);
 
     fclose(images);
 
@@ -305,9 +301,6 @@ void ui_delete_image(user creator){
     int found_list[SEARCH_MAX_SIZE];
     int images_n;
     int choice = INT_MAX;
-    
-    FILE *fileptr;
-    fileptr = fopen("images.dat", "rb");
 
     images_n = ui_creator_upload_list(creator, found_list);
 
@@ -317,7 +310,7 @@ void ui_delete_image(user creator){
         fflush(stdin);
 
         if(choice <= images_n && choice > 0) {
-            removeImage(found_list[choice - 1]);
+            removeImage(found_list[choice - 1], creator);
         }
     }
 }

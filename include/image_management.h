@@ -24,13 +24,15 @@
 
 int imageFileInit();
 
-void writeImage(image newImage, FILE* dest);
+void writeImage(image, FILE*, user);
 image nextImage(FILE* source);
 int imageCompare(image source1, image source2);
+void removeImage(int, user);
+void ui_edit_image_element(char*, char*, int);
 
 void showImage(image);
-image downloadImage(image, user);
+void downloadImage(image, int, FILE*, user);
 void addImageVote(image, float, int, FILE*, user);
-void removeImage(int);
+
 
 #endif

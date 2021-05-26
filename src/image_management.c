@@ -16,8 +16,14 @@ int imageFileInit(){
     return success;
 }
 
-void writeImage(image newImage, FILE* dest){
+void writeImage(image newImage, FILE* dest, user performer){
+    FILE* log;
+
     fwrite(&newImage, sizeof(image), 1, dest);
+
+    log = fopen("events.log","a");
+    fprintf(log, "%s (%s) uploaded \"%s\"\n", performer.username, performer.job, newImage.title);
+    fclose(log);
 }
 
 image nextImage(FILE* source){
@@ -58,11 +64,13 @@ int imageCompare(image source1, image source2){
     return equals;
 }
 
-void removeImage(int position){
+void removeImage(int position, user performer){
 
     image currentImage;
+    image deletedImage;
     FILE* fileptr;
     FILE* filetmp;
+    FILE* log;
 
     int i = 0;
 
@@ -73,6 +81,8 @@ void removeImage(int position){
         fread(&currentImage, sizeof(image), 1, fileptr);
         if(i != position && !feof(fileptr)){
             fwrite(&currentImage, sizeof(image), 1, filetmp);
+        }else if(i == position){
+            deletedImage = currentImage;
         }
         i++;
     }
@@ -91,36 +101,11 @@ void removeImage(int position){
     fclose(fileptr);
     fclose(filetmp);
     remove("temp");
+
+    log = fopen("events.log","a");
+    fprintf(log, "%s (%s) deleted \"%s\"\n", performer.username, performer.job, deletedImage.title);
+    fclose(log);
 }
-
-/*
-void removeImage(image toRemove){
-    int success = 0;
-    FILE* images;
-    image currentImage;
-
-    images = fopen("images.dat","rb+");
-
-    while(!feof(images) && success == 0){
-        currentImage = nextImage(images);
-
-        if(imageCompare(toRemove, currentImage) == 1){
-            
-            //I don't feel confident about this one.
-            while(!feof(images)){
-                fseek(images, (long) (sizeof(image)) * -1, SEEK_CUR); //Return to position of image to be deleted, go back 1 image
-                writeImage(currentImage, images); //Write next image to it
-                fseek(images, sizeof(image) * 2, SEEK_CUR); //Go to next image, we are poiting to the image we just removed so we need to skip the now duplicate entry
-            }
-            //fseek(images, -sizeof(image), SEEK_END); //Go to last duplicate entry
-            //fwrite(NULL, sizeof(image), 1, images); //We need to find a better way to remove the last duplicate. 
-            success = 1;
-        }
-    }
-
-    fclose(images);
-}
-*/
 
 void showImage(image source){
     int i;
@@ -139,7 +124,7 @@ void showImage(image source){
 
 }
 
-image downloadImage(image toDownload, user performer) {
+void downloadImage(image toDownload, int position, FILE* dest, user performer) {
     //TODO aggiungere timestamp accanto agli eventi. se abbiamo tempo
 
     FILE* log;
@@ -147,11 +132,12 @@ image downloadImage(image toDownload, user performer) {
     toDownload.downloads++;
     printf("Downloaded %s\n",toDownload.file_name);
 
-    log = fopen("downloads.log","a");
-    fprintf(log, "%s (%s) downloaded %s By %s\n", performer.username, performer.job, toDownload.title, toDownload.author);
-    fclose(log);
+    fseek(dest, sizeof(image) * position, SEEK_SET);
+    fwrite(&toDownload, sizeof(image), 1, dest);
 
-    return toDownload;
+    log = fopen("events.log","a");
+    fprintf(log, "%s (%s) downloaded \"%s\" By %s\n", performer.username, performer.job, toDownload.title, toDownload.author);
+    fclose(log);
 }
 
 void addImageVote(image current_image, float image_vote, int img_position ,FILE* images, user performer){
@@ -173,8 +159,29 @@ void addImageVote(image current_image, float image_vote, int img_position ,FILE*
     fwrite(&current_image.vote, sizeof(float), 1, images);
     fwrite(&current_image.num_votes, sizeof(int), 1, images);
     
-    log = fopen("votes.log","a");
-    fprintf(log, "%s (%s) voted %s By %s %.1f/5\n", performer.username, performer.job, current_image.title, current_image.author, image_vote);
+    log = fopen("events.log","a");
+    fprintf(log, "%s (%s) voted \"%s\" By %s %.1f/5\n", performer.username, performer.job, current_image.title, current_image.author, image_vote);
     fclose(log);
+
+}
+
+void ui_edit_image_element(char* message, char* original_string, int max_size) {
+
+    char* charptr;
+    char* temp;
+
+    temp = (char*) calloc(max_size, sizeof(char));
+
+    puts(message);
+    printf("(Current: %s) ", original_string);
+
+    fgets(temp, max_size, stdin);
+    if(strcmp(temp, "\n") != 0){
+        charptr = strstr(temp, "\n");
+        *charptr = 0;
+        strcpy(original_string, temp);
+    }
+
+    free(temp);
 
 }

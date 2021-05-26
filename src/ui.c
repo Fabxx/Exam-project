@@ -1,21 +1,6 @@
 
 #include "../include/libraries.h"
 
-//TODO aggiungere (forse) funzione login
-/*
-void ui_main() {
-
-
-     puts("\t\t\t\t\t|-----Image Hosting System-----|\n"
-         "\t\t\t\t\t|---------- v1.0 --------------|\n");
-
-     puts("You need an account to use the service\n"
-          "1) New account\n"
-          "2) Existing account\n"
-          "3) Exit\n");
-}
-*/
-
 
 void ui_creator() {
 

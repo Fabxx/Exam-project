@@ -185,3 +185,20 @@ void ui_edit_image_element(char* message, char* original_string, int max_size) {
     free(temp);
 
 }
+
+void sortDownloads(image foundList[], int size){
+    image tmp;
+    int j, k;
+
+    for(j = 0; j < size-1; j++) {
+        for(k = j+1; k < size; k++) {
+            if(foundList[j].downloads < foundList[k].downloads) {
+                tmp = foundList[j];
+                foundList[j] = foundList[k];
+                foundList[k] = tmp;
+
+            }
+        }
+    }
+    
+}

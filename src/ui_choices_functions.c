@@ -133,13 +133,14 @@ void ui_most_downloaded() {
             }
         }
 
-        for(j = 0; j < i-1; j++) {
-            for(k = j+1; k < i; k++) {
-                 if(foundList[j].downloads < foundList[k].downloads) {
-                    tmp = foundList[j];
-                    foundList[j] = foundList[k];
-                    foundList[k] = tmp;
+        sortDownloads(foundList, i);
 
+        while(!feof(fileptr)){
+            fread(&tmp, sizeof(image), 1, fileptr);
+            if(!feof(fileptr)) {
+                if(tmp.downloads > foundList[i-1].downloads){
+                    foundList[i-1] = tmp;
+                    sortDownloads(foundList, i);
                 }
             }
         }
@@ -147,17 +148,18 @@ void ui_most_downloaded() {
 
         //TODO aggiungere supporto per più di 10 immagini
 
-        printf("Download list:\n");
+    printf("10 most downloaded images:\n");
         for (j = 0; j < i; j++) {
 
-            printf("Title:%s\t"
-                "File type:%s\t"
-                "File name:%s\t"
-                "Number of Downloads:%d\n", foundList[j].title, foundList[j].file_type,
-                                        foundList[j].file_name, foundList[j].downloads);
-        }
-        fclose(fileptr);
+        printf("Title:%s\t"
+            "File type:%s\t"
+            "File name:%s\t"
+            "Number of Downloads:%d\n", foundList[j].title, foundList[j].file_type,
+                                    foundList[j].file_name, foundList[j].downloads);
     }
+    fclose(fileptr);
+
+}
         
 
 

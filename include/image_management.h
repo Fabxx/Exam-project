@@ -33,6 +33,7 @@ void ui_edit_image_element(char*, char*, int);
 void showImage(image);
 void downloadImage(image, int, FILE*, user);
 void addImageVote(image, float, int, FILE*, user);
+void sortDownloads(image*, int);
 
 
 #endif

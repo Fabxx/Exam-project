@@ -6,6 +6,7 @@
 #include "../include/ui_choices.h"
 
 int main(void) {
+	setbuf(stdout, NULL);
 	
 	imageFileInit();
 	ui_choices();

@@ -60,3 +60,4 @@ dkms.conf
 # Temporary. Take Eclipse configuration local
 /.cproject
 /.project
+/Release/

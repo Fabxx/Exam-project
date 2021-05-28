@@ -120,7 +120,7 @@ void ui_most_downloaded() {
 
     image foundList[10];
     image tmp;
-    int i = 0, j = 0, k = 0;
+    int i = 0, j = 0;
     FILE *fileptr;
     fileptr = fopen("images.dat", "rb");
 

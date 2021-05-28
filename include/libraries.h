@@ -24,8 +24,8 @@
 #define ID_LENGHT 30
 
 #define TITLE_SIZE 40
-#define F_TYPE 10
-#define NAME_SIZE 20
+#define F_TYPE 20
+#define NAME_SIZE 30
 #define KEY_LENGHT 15
 #define KEYS 10
 

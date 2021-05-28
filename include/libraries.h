@@ -9,6 +9,10 @@
  *        4)Lunghezza del nome del file
  *        5)Lunghezza del titolo di ricerca
  *        6)Lunghezza per descrivere il tipo di file.
+ *        7)Dimensione massima per la ricerca.
+ *        8)Posizione del voto memorizzato all'interno della struct, questo ci permetterà
+ *          di modificare il voto all'interno del file e la media qualora ci fossero nuovi voti
+ *          inseriti.
  *        
  * @version 0.1
  * @date 2021-05-12

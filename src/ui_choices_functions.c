@@ -174,7 +174,7 @@ void ui_upload(user creator) {
     puts("Insert Title: ");
     fgets(new_image.title, TITLE_SIZE, stdin);
     charptr = strstr(new_image.title, "\n");
-    *charptr = 0;
+    *charptr = 0; //il puntatore viene portato a 0 per evitare valori casuali.
 
     puts("Insert file type (extension) : ");
     fgets(new_image.file_type, F_TYPE, stdin);
@@ -186,7 +186,7 @@ void ui_upload(user creator) {
     charptr = strstr(new_image.file_name, "\n");
     *charptr = 0;
 
-    //Init keys to empty value. Prevents errors
+    //Inizializza le chiavi ad un valore vuoto per evitare errori.
     for(i = 0; i < KEYS; i++) {
         strcpy(new_image.keywords[i], "");
     }
@@ -283,7 +283,7 @@ void ui_edit_image(user creator) {
                 for(i = 0; i < KEYS; i++) {
                     ui_edit_image_element("Insert a keyword (Leave blank to stop editing) ", current_image.keywords[i], KEY_LENGHT);
                     if(strcmp(current_image.keywords[i], "") == 0){
-                        i = KEYS; //exit loop
+                        i = KEYS; //uscita dal for.
                     }
                 }
                 fwrite(current_image.keywords, KEY_LENGHT * KEYS, 1, fileptr);

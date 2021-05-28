@@ -1,8 +1,8 @@
 /**
  * @file user_managment.h
  * @author Fabio Spiriticchio - Sergio Mari
- * @brief Questa funzione permette di poter effettuare una verifica sul file, per poter verificare se 
- *        lo username inserito è già esistente o meno alla creazione dell'account.
+ * @brief Questa funzione permette di effettuare una semplice funzione di login con cui
+ *        verranno utilizzati i dati dell'utente da attribuire ai file.
  * @version 0.1
  * @date 2021-05-13
  * 
@@ -15,7 +15,6 @@
 
 #include "struct.h"
 
-//int userExists(user s[], FILE*);
 void getUserData(user*, int);
 
 #endif //USER_MANAGMENT_H_INCLUDED

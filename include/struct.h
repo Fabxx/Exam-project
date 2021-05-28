@@ -9,10 +9,11 @@
  *          -Professione
  *          -Tipo di utente, se creatore o utilizzatore. Assume valore 0 se utilizzatore, 1 se creatore.
  *        2)Image struct, per gli attributi dei file, tra cui:
+ *          -Titolo del file.
  *          -Tipo del file (png, jpeg, ecc)
  *          -Nome del file
  *          -Parole chiave utilizzate per la ricerca delle immagini
- *          -Voti per la valutazione
+ *          -Voti per la valutazione su cui calcolare la media.
  *          -Numero di download effettuati su un'immagine
  *          -Autore del file.
  * @version 0.1
@@ -40,7 +41,7 @@ typedef struct {
     char title[TITLE_SIZE];
     char file_type[F_TYPE]; 
     char file_name[NAME_SIZE]; 
-    char keywords[KEY_LENGHT][KEYS]; //KEY_LENGHT = lunghezza parole, KEYS n parole.
+    char keywords[KEY_LENGHT][KEYS]; 
     float vote;
     int num_votes;
     int downloads;

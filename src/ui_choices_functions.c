@@ -161,49 +161,25 @@ void ui_most_downloaded() {
 
 }
         
+
+
 void ui_upload(user creator) {
     image new_image;
     int i;
     FILE* images;
     char* charptr = NULL;
-    int choice = 0;
 
     images = fopen("images.dat", "a+b");
-
-    puts("Which image you want to upload?\n"
-         "1)Vector image\n"
-         "2)Photo image\n"
-         "3)Other\n");
-         scanf("%d", &choice);
-         fflush(stdin);
-
 
     puts("Insert Title: ");
     fgets(new_image.title, TITLE_SIZE, stdin);
     charptr = strstr(new_image.title, "\n");
     *charptr = 0; //il puntatore viene portato a 0 per evitare valori casuali.
 
-    if (choice == 1)
-    {
-        puts("File type is vector\n");
-        new_image.file_type[F_TYPE] = "Vector";
-        new_image.vector++;
-        charptr = strstr(new_image.file_type, "");
-        *charptr = 0;
-    } else if (choice == 2)
-    {
-        puts("File type is photo\n");
-        new_image.file_type[F_TYPE] = "Photo";
-        new_image.photo++;
-        charptr = strstr(new_image.file_type, "\n");
-        *charptr = 0;
-    } else
-    {
-        puts("Insert file type (extension) : ");
-        fgets(new_image.file_type, F_TYPE, stdin);
-        charptr = strstr(new_image.file_type, "\n");
-        *charptr = 0;
-    }
+    puts("Insert file type (extension) : ");
+    fgets(new_image.file_type, F_TYPE, stdin);
+    charptr = strstr(new_image.file_type, "\n");
+    *charptr = 0;
 
     puts("Insert the file name: ");
     fgets(new_image.file_name, NAME_SIZE, stdin);
@@ -215,7 +191,7 @@ void ui_upload(user creator) {
         strcpy(new_image.keywords[i], "");
     }
 
-    for(i = 0; i < KEYS; i++) {
+    for(i = 0; i < KEYS; i++){
         puts("Insert a keyword, leave blank to continue: ");
         fgets(new_image.keywords[i], KEY_LENGHT, stdin);
 
@@ -260,11 +236,8 @@ int ui_creator_upload_list(user creator, int foundList[]) {
                 "File name:%s\t"
                 "Number of Downloads:%d\t"
                 "Author:%s \t"
-                "NUmber of votes:%d \n"
-                "Number of vector images: %d\n"
-                "Number of photo images: %d\n", i, currentImage.title, currentImage.file_type,
-                                            currentImage.file_name, currentImage.downloads, currentImage.author, 
-                                            currentImage.num_votes, currentImage.vector, currentImage.photo);
+                "NUmber of votes:%d \n", i, currentImage.title, currentImage.file_type,
+                                    currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
             } 
             j++;
         }

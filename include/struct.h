@@ -46,8 +46,6 @@ typedef struct {
     int num_votes;
     int downloads;
     char author[ID_LENGHT];
-    int vector;
-    int photo;
     
 } image;
 

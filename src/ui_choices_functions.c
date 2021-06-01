@@ -5,21 +5,27 @@
 
 void ui_search_image(user performer) {
 
+    int badInput;
     int found_list[SEARCH_MAX_SIZE];
     image current_image;
     int found, choice, decision;
     int i, j, foundImages = 0;
     FILE* images;
 
+    char string[TITLE_SIZE];
+
     float user_vote = 0;
 
     images = fopen("images.dat","r+b");
 
     //Inserimeto del termine di ricerca
-    char string[TITLE_SIZE];
-    puts("Insert search term: ");
-    fgets(string, TITLE_SIZE, stdin);
-    string[strlen(string) - 1] = 0;
+    
+    do{
+        printf("Insert search term (max size is %d): ",TITLE_SIZE);
+        fgets(string, TITLE_SIZE, stdin);
+        badInput = clear_input_error(string);
+    }while(badInput);
+    
 
     //Inizio della ricerca delle immagini
     i = 0;

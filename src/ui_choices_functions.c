@@ -4,7 +4,7 @@
 #include "../include/image_management.h"
 
 
-int clearInputError(char* string){
+int clear_input_error(char* string){
     //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
     //Ritorna 0 se ha avuto successo
     //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.

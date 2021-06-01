@@ -4,7 +4,7 @@
 #include "../include/image_management.h"
 
 
-int clearInputError(char* string){
+int clear_input_error(char* string){
     //Remove trailing newline character after user input
     //Returns 0 if success
     //Returns 1 if newline has not been found and clears stdin buffer

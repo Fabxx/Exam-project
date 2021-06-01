@@ -5,9 +5,9 @@
 
 
 int clearInputError(char* string){
-    //Remove trailing newline character after user input
-    //Returns 0 if success
-    //Returns 1 if newline has not been found and clears stdin buffer
+    //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
+    //Ritorna 0 se ha avuto successo
+    //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.
     int result = 0;
     char* charptr;
 

@@ -6,7 +6,6 @@
 void getUserData(user *structPtr, int type) {
 
             int i;
-            char *charptr;
             
             do{
                 printf("Insert nickname, max %d lenght:", ID_LENGHT);
@@ -18,7 +17,7 @@ void getUserData(user *structPtr, int type) {
             do{
                 printf("Insert job, max %d lenght: ", ID_LENGHT);
                 fgets(structPtr->job, ID_LENGHT, stdin);
-                i = clear_input_error(structPtr->username);
+                i = clear_input_error(structPtr->job);
             }while(i != 0);
             
 

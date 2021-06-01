@@ -4,7 +4,7 @@
 #include "../include/image_management.h"
 
 
-int clear_input_error(char* string){
+int clear_input_error(char string[]){
     //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
     //Ritorna 0 se ha avuto successo
     //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.
@@ -13,7 +13,7 @@ int clear_input_error(char* string){
 
     charptr = strstr(string, "\n");
     if(charptr != NULL){
-        charptr = 0;
+        *charptr = 0;
     }else{
         while(getchar() != '\n');
         result = 1;
@@ -183,26 +183,28 @@ void ui_most_downloaded() {
 
 void ui_upload(user creator) {
     image new_image;
-    int i;
+    int i, badInput;
     FILE* images;
-    char* charptr = NULL;
 
     images = fopen("images.dat", "a+b");
 
-    puts("Insert Title: ");
-    fgets(new_image.title, TITLE_SIZE, stdin);
-    charptr = strstr(new_image.title, "\n");
-    *charptr = 0; //il puntatore viene portato a 0 per evitare valori casuali.
+    do{
+        puts("Insert Title: ");
+        fgets(new_image.title, TITLE_SIZE, stdin);
+        badInput = clear_input_error(new_image.title);
+    }while(badInput);
 
-    puts("Insert file type (extension) : ");
-    fgets(new_image.file_type, F_TYPE, stdin);
-    charptr = strstr(new_image.file_type, "\n");
-    *charptr = 0;
+    do{
+        puts("Insert file type (extension) : ");
+        fgets(new_image.file_type, F_TYPE, stdin);
+        badInput = clear_input_error(new_image.file_type);
+    }while(badInput);
 
-    puts("Insert the file name: ");
-    fgets(new_image.file_name, NAME_SIZE, stdin);
-    charptr = strstr(new_image.file_name, "\n");
-    *charptr = 0;
+    do{
+        puts("Insert the file name: ");
+        fgets(new_image.file_name, NAME_SIZE, stdin);
+        badInput = clear_input_error(new_image.file_name);
+    }while(badInput);
 
     //Inizializza le chiavi ad un valore vuoto per evitare errori.
     for(i = 0; i < KEYS; i++) {
@@ -210,15 +212,19 @@ void ui_upload(user creator) {
     }
 
     for(i = 0; i < KEYS; i++){
-        puts("Insert a keyword, leave blank to continue: ");
-        fgets(new_image.keywords[i], KEY_LENGHT, stdin);
+        do{
+            puts("Insert a keyword, leave blank to continue: ");
+            fgets(new_image.keywords[i], KEY_LENGHT, stdin);
 
-        charptr = strstr(new_image.keywords[i], "\n");
-        *charptr = 0;
+            badInput = clear_input_error(new_image.keywords[i]);
 
-        if(strcmp(new_image.keywords[i], "") == 0){
-            i = KEYS;
-        }
+            if(strcmp(new_image.keywords[i], "") == 0){
+                i = KEYS;
+            }
+
+        }while(badInput);
+
+        
 
     }
 

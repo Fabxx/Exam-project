@@ -4,10 +4,10 @@
 #include "../include/image_management.h"
 
 
-int clear_input_error(char* string){
-    //Remove trailing newline character after user input
-    //Returns 0 if success
-    //Returns 1 if newline has not been found and clears stdin buffer
+int clearInputError(char* string){
+    //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
+    //Ritorna 0 se ha avuto successo
+    //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.
     int result = 0;
     char* charptr;
 

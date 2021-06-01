@@ -2,6 +2,24 @@
 #include "../include/libraries.h"
 #include "../include/struct.h"
 
+int clear_input_error(char string[]){
+    //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
+    //Ritorna 0 se ha avuto successo
+    //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.
+    int result = 0;
+    char* charptr;
+
+    charptr = strstr(string, "\n");
+    if(charptr != NULL){
+        *charptr = 0;
+    }else{
+        while(getchar() != '\n');
+        result = 1;
+    }
+
+    return result;
+}
+
 int imageFileInit(){
     int success = 0;
     FILE* images;
@@ -167,7 +185,7 @@ void addImageVote(image current_image, float image_vote, int img_position ,FILE*
 
 void ui_edit_image_element(char* message, char* original_string, int max_size) {
 
-    char* charptr;
+    int badInput;
     char* temp;
 
     temp = (char*) calloc(max_size, sizeof(char));
@@ -175,12 +193,15 @@ void ui_edit_image_element(char* message, char* original_string, int max_size) {
     puts(message);
     printf("(Current: %s) ", original_string);
 
-    fgets(temp, max_size, stdin);
-    if(strcmp(temp, "\n") != 0){
-        charptr = strstr(temp, "\n");
-        *charptr = 0;
-        strcpy(original_string, temp);
-    }
+    do{
+        printf("Insert a valid edit: ");
+        fgets(temp, max_size, stdin);
+        badInput = clear_input_error(temp);
+
+        if(strcmp(temp, "") != 0){
+            strcpy(original_string, temp);
+        }
+    }while(badInput);
 
     free(temp);
 

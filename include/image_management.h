@@ -28,6 +28,8 @@
 #include "libraries.h"
 #include "struct.h"
 
+int clear_input_error(char[]);
+
 int imageFileInit();
 
 void writeImage(image, FILE*, user);

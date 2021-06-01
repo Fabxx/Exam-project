@@ -3,25 +3,6 @@
 #include "../include/struct.h"
 #include "../include/image_management.h"
 
-
-int clear_input_error(char string[]){
-    //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
-    //Ritorna 0 se ha avuto successo
-    //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.
-    int result = 0;
-    char* charptr;
-
-    charptr = strstr(string, "\n");
-    if(charptr != NULL){
-        *charptr = 0;
-    }else{
-        while(getchar() != '\n');
-        result = 1;
-    }
-
-    return result;
-}
-
 void ui_search_image(user performer) {
 
     int found_list[SEARCH_MAX_SIZE];

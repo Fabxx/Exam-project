@@ -4,6 +4,24 @@
 #include "../include/image_management.h"
 
 
+int clearInputError(char* string){
+    //Remove trailing newline character after user input
+    //Returns 0 if success
+    //Returns 1 if newline has not been found and clears stdin buffer
+    int result = 0;
+    char* charptr;
+
+    charptr = strstr(string, "\n");
+    if(charptr != NULL){
+        charptr = 0;
+    }else{
+        while(getchar() != '\n');
+        result = 1;
+    }
+
+    return result;
+}
+
 void ui_search_image(user performer) {
 
     int found_list[SEARCH_MAX_SIZE];

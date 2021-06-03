@@ -258,7 +258,50 @@ void ui_upload(user creator) {
 
 }
 
-https://github.com/Sqrdelta/Exam-project.git
+int ui_creator_upload_list(user creator, int foundList[]) {
+
+    image currentImage;
+    int i = 0, j = 0;
+    int photos = 0, graphics = 0, vectors = 0, other = 0;
+    FILE *fileptr;
+    fileptr = fopen("images.dat", "rb");
+
+    if(fileptr != NULL) {
+        printf("Uploads list:\n");
+
+        while(!feof(fileptr) && i < SEARCH_MAX_SIZE) {
+            fread(&currentImage, sizeof(image), 1, fileptr);
+            if(!feof(fileptr) && strcmp(currentImage.author, creator.username) == 0){
+                foundList[i] = j;
+                i++;
+
+                printf("%d) Title:%s\t"
+                "File type:%s\t"
+                "File name:%s\t"
+                "Number of Downloads:%d\t"
+                "Author:%s \t"
+                "NUmber of votes:%d \n", i, currentImage.title, currentImage.file_type,
+                                    currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
+
+                if(strcmp(currentImage.file_type, "photo") == 0){
+                    photos++;
+                }else if(strcmp(currentImage.file_type, "vectorial") == 0){
+                    vectors++;
+                }else if(strcmp(currentImage.file_type, "graphical") == 0){
+                    graphics++;
+                }else{
+                    other++;
+                }
+            } 
+            j++;
+        }
+            printf("Number of uploaded images: %d\n", i);
+            printf("Photos: %d, Graphics: %d, Vectorial images: %d, Other types: %d\n", photos, graphics, vectors, other);
+    }
+
+    fclose(fileptr);
+    return i;
+}
 
 void ui_edit_image(user creator) {
     

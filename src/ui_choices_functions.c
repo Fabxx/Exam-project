@@ -262,6 +262,7 @@ int ui_creator_upload_list(user creator, int foundList[]) {
 
     image currentImage;
     int i = 0, j = 0;
+    int photos = 0, graphical = 0, vectorial = 0, other = 0;
     FILE *fileptr;
     fileptr = fopen("images.dat", "rb");
 
@@ -287,6 +288,23 @@ int ui_creator_upload_list(user creator, int foundList[]) {
         }
             printf("Number of uploaded images: %d\n", i);
             
+            if(strcmp(currentImage.file_type, "photo") == 0) {
+                photos++;
+            } else if (strcmp(currentImage.file_type, "vectorial") == 0)
+            {
+                vectorial++;
+            } else if (strcmp(currentImage.file_type, "graphical") == 0)
+            {
+                graphical++;
+            } else
+            {
+                other++;
+            }
+            
+            printf("Number of photo images: %d \n"
+                    "Number of vectorial images: %d \n"
+                    "Number of graphical images: %d\n"
+                    "Number of other images: %d\n", photos, vectorial, graphical, other );
     }
     fclose(fileptr);
     return i;

@@ -152,8 +152,6 @@ void ui_most_downloaded() {
         }
     }
 
-        //TODO aggiungere supporto per più di 10 immagini
-
     printf("10 most downloaded images:\n");
         for (j = 0; j < i; j++) {
 
@@ -167,8 +165,6 @@ void ui_most_downloaded() {
 
 }
         
-
-
 void ui_upload(user creator) {
     image new_image;
     int i, badInput, choice = 0;

@@ -258,39 +258,7 @@ void ui_upload(user creator) {
 
 }
 
-int ui_creator_upload_list(user creator, int foundList[]) {
-
-    image currentImage;
-    int i = 0, j = 0;
-    FILE *fileptr;
-    fileptr = fopen("images.dat", "rb");
-
-    if(fileptr != NULL) {
-        printf("Uploads list:\n");
-
-        while(!feof(fileptr) && i < SEARCH_MAX_SIZE) {
-            fread(&currentImage, sizeof(image), 1, fileptr);
-            if(!feof(fileptr) && strcmp(currentImage.author, creator.username) == 0){
-                foundList[i] = j;
-                i++;
-
-                printf("%d) Title:%s\t"
-                "File type:%s\t"
-                "File name:%s\t"
-                "Number of Downloads:%d\t"
-                "Author:%s \t"
-                "NUmber of votes:%d \n", i, currentImage.title, currentImage.file_type,
-                                    currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
-            } 
-            j++;
-
-        }
-            printf("Number of uploaded images: %d\n", i);
-            
-    }
-    fclose(fileptr);
-    return i;
-}
+https://github.com/Sqrdelta/Exam-project.git
 
 void ui_edit_image(user creator) {
     

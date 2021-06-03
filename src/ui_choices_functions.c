@@ -2,6 +2,7 @@
 #include "../include/ui_choices_functions.h"
 #include "../include/struct.h"
 #include "../include/image_management.h"
+#include "../include/ui.h"
 
 void ui_search_image(user performer) {
 
@@ -170,24 +171,52 @@ void ui_most_downloaded() {
 
 void ui_upload(user creator) {
     image new_image;
-    int i, badInput;
+    int i, badInput, choice = 0;
     FILE* images;
 
     images = fopen("images.dat", "a+b");
 
+    //Inserimento Titolo
     do{
+        ui_simple_divider();
         puts("Insert Title: ");
         fgets(new_image.title, TITLE_SIZE, stdin);
         badInput = clear_input_error(new_image.title);
     }while(badInput);
 
+    //Inserimento Tipo
     do{
-        puts("Insert file type (extension) : ");
-        fgets(new_image.file_type, F_TYPE, stdin);
-        badInput = clear_input_error(new_image.file_type);
-    }while(badInput);
-
+        ui_creator_default_types();
+        scanf("%d", &choice);
+        fflush(stdin);
+    }while(choice < 0 || choice > 3);
+    if(choice == 0){
+        do{
+            ui_simple_divider();
+            puts("Insert custom image type: ");
+            fgets(new_image.file_type, F_TYPE, stdin);
+            badInput = clear_input_error(new_image.file_type);
+        }while(badInput);
+    }else{
+        switch(choice){
+            case 1:{
+                strcpy(new_image.file_type, "photo");
+                break;
+            }
+            case 2:{
+                strcpy(new_image.file_type, "vectorial");
+                break;
+            }
+            case 3:{
+                strcpy(new_image.file_type, "graphical");
+                break;
+            }
+        }
+    }
+    
+    //Inserimento Nome
     do{
+        ui_simple_divider();
         puts("Insert the file name: ");
         fgets(new_image.file_name, NAME_SIZE, stdin);
         badInput = clear_input_error(new_image.file_name);
@@ -198,8 +227,10 @@ void ui_upload(user creator) {
         strcpy(new_image.keywords[i], "");
     }
 
+    //Inserimento Chiavi
     for(i = 0; i < KEYS; i++){
         do{
+            ui_simple_divider();
             puts("Insert a keyword, leave blank to continue: ");
             fgets(new_image.keywords[i], KEY_LENGHT, stdin);
 

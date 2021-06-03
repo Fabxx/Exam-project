@@ -301,10 +301,7 @@ int ui_creator_upload_list(user creator, int foundList[]) {
                 other++;
             }
             
-            printf("Number of photo images: %d \n"
-                    "Number of vectorial images: %d \n"
-                    "Number of graphical images: %d\n"
-                    "Number of other images: %d\n", photos, vectorial, graphical, other );
+            printf("photo: %d\n vector: %d\n graphics: %d\n other: %d\n", photos, vectorial, graphical, other );
     }
     fclose(fileptr);
     return i;

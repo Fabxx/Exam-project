@@ -60,3 +60,6 @@ dkms.conf
 # Make Eclipse builds local
 /Release/
 /Debug/
+
+# Make logs local
+events.log

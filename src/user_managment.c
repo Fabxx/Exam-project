@@ -2,6 +2,7 @@
 #include "../include/user_managment.h"
 #include "../include/struct.h"
 #include "../include/ui_choices_functions.h"
+#include "../include/image_management.h"
 
 void getUserData(user *structPtr, int type) {
 

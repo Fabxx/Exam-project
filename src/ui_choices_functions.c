@@ -174,6 +174,7 @@ void ui_upload(user creator) {
     int i, badInput, choice = 0;
     FILE* images;
 
+
     images = fopen("images.dat", "a+b");
 
     //Inserimento Titolo
@@ -283,6 +284,7 @@ int ui_creator_upload_list(user creator, int foundList[]) {
             } 
             j++;
         }
+            printf("Number of uploaded images: %d\n", i);
     }
     fclose(fileptr);
     return i;

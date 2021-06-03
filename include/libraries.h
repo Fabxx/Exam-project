@@ -36,6 +36,9 @@
 #define SEARCH_MAX_SIZE 40
 
 #define VOTE_POS TITLE_SIZE+F_TYPE+NAME_SIZE+(KEY_LENGHT*KEYS)
+#define NUM_PHOTO_POS VOTE_POS+sizeof(int)+sizeof(int)+ID_LENGHT
+#define NUM_VECTOR_POS NUM_PHOTO_POS + sizeof(int)
+#define NUM_GRAPHICAL_POS NUM_VECTOR_POS + sizeof(int)
 
 
 #include <stdio.h>

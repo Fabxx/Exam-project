@@ -173,6 +173,9 @@ void ui_upload(user creator) {
     image new_image;
     int i, badInput, choice = 0;
     FILE* images;
+     new_image.num_photo_image = 0;
+     new_image.num_vector_image = 0;
+     new_image.num_graphical_image = 0;
 
 
     images = fopen("images.dat", "a+b");
@@ -202,17 +205,29 @@ void ui_upload(user creator) {
         switch(choice){
             case 1:{
                 strcpy(new_image.file_type, "photo");
+                new_image.num_photo_image++;
+                fseek(images, sizeof(image) + NUM_PHOTO_POS, SEEK_SET);
+                fwrite(new_image.num_photo_image, sizeof(int), 1, images);
                 break;
             }
             case 2:{
                 strcpy(new_image.file_type, "vectorial");
+                new_image.num_vector_image++;
+                fseek(images, sizeof(image) + NUM_VECTOR_POS, SEEK_SET);
+                fwrite(new_image.num_vector_image, sizeof(int), 1, images);
+                
                 break;
             }
             case 3:{
                 strcpy(new_image.file_type, "graphical");
+                new_image.num_graphical_image++;
+                fseek(images, sizeof(image) + NUM_GRAPHICAL_POS, SEEK_SET);
+                fwrite(new_image.num_graphical_image, sizeof(int), 1, images);
+                
                 break;
             }
         }
+        fclose(images);
     }
     
     //Inserimento Nome
@@ -283,8 +298,17 @@ int ui_creator_upload_list(user creator, int foundList[]) {
                                     currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
             } 
             j++;
+            fread(currentImage.num_photo_image, sizeof(int), 1, fileptr);
+            fread(currentImage.num_vector_image, sizeof(int), 1, fileptr);
+            fread(currentImage.num_graphical_image, sizeof(int), 1, fileptr);
+
         }
             printf("Number of uploaded images: %d\n", i);
+            
+            printf("Number of Photo images: %d \n"
+                   "Number of vectorial images: %d \n"
+                   "number of graphicla images: %d \n", 
+                   currentImage.num_photo_image, currentImage.num_vector_image, currentImage.num_graphical_image);
     }
     fclose(fileptr);
     return i;

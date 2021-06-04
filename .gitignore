@@ -54,12 +54,6 @@ dkms.conf
 # Make settings local
 .vscode/settings.json
 
-# Temporary. Take files local.
-*.dat
-
 # Make Eclipse builds local
 /Release/
 /Debug/
-
-# Make logs local
-events.log

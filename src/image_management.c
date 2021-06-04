@@ -196,9 +196,9 @@ void addImageVote(image current_image, float image_vote, int img_position ,FILE*
     char* time;
 
     /*
-    To each the exact parameter we want to edit, we need to get the initial size of the image
-    then for each parameter we sum the size of them with the constans assigned, to reach the vote
-    parameter. An image weights 260 bytes, to reach vote we need to get the size of 650 bytes*/
+     Per ogni parametro che vogliamo modificare, dobbiamo ottenere la dimensione iniziale dell'immagine,
+     poi per ogni parametro ne sommiamo la grandezza con le costanti assegnate, per arrivare al 
+     parametro del voto. Un'immagine pesa n byte, per raggiungere il voto dobbiamo raggiungere la posizione precisa del voto in byte*/
 
     rewind(images);
     fseek(images, sizeof(image) * img_position + VOTE_POS, SEEK_SET);

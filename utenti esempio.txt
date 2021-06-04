@@ -1,0 +1,17 @@
+CREATORI
+Ubaldo - Designer
+Bob - Soccer Player
+LogoMakers - Graphic Designer
+Tod - Artist
+Axel - Butcher
+Ao - Employer
+Yuri - Web Developer
+
+UTILIZZATORI
+Franco - Tester
+Mark - Architect
+Axel - Baker
+Dave - Painter
+Nathan - Jobless
+Yuri - Web Developer
+Hugo - Student

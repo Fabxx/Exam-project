@@ -46,5 +46,6 @@ void downloadImage(image, int, FILE*, user);
 void addImageVote(image, float, int, FILE*, user);
 void sortDownloads(image*, int);
 
+void stringToLower(char*, int);
 
 #endif

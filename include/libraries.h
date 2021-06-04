@@ -42,5 +42,6 @@
 #include <string.h>
 #include <limits.h>
 #include <time.h>
+#include <ctype.h>
 
 #endif // LIBRARIES_H_INCLUDED

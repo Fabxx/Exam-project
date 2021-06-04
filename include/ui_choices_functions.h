@@ -25,7 +25,7 @@ void ui_search_image(user);
 void ui_most_downloaded();
 void ui_upload(user creator);
 void ui_edit_image(user creator);
-int ui_creator_upload_list(user creator, int foundList[]);
+int ui_creator_upload_list(user creator, int foundList[], int);
 void ui_delete_image(user creator);
 void ui_print_logs();
 

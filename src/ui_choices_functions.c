@@ -13,11 +13,12 @@ void ui_search_image(user performer) {
     int i, j, foundImages = 0;
     FILE* images;
 
-    char string[TITLE_SIZE];
+    char* string;
 
     float user_vote = 0;
 
     images = fopen("images.dat","r+b");
+    string = (char*) calloc(TITLE_SIZE, sizeof(char));
 
     //Inserimeto del termine di ricerca
     
@@ -34,13 +35,18 @@ void ui_search_image(user performer) {
         //Prendi la prossima immagine
         current_image = nextImage(images);
         if(!feof(images)){
-            //Controlla se è nei termini di ricerca
+            //Controlla se e' nei termini di ricerca
+        	stringToLower(string, TITLE_SIZE);
             found = 1;
+            stringToLower(current_image.title, TITLE_SIZE);
             if(strstr(current_image.title, string) == NULL){
+            	stringToLower(current_image.author, ID_LENGHT);
                 if(strstr(current_image.author, string) == NULL){
+                	stringToLower(current_image.file_type, F_TYPE);
                     if(strstr(current_image.file_type, string) == NULL)
                     found = 0;
                     for(j = 0; j < KEYS && found == 0; j++){
+                    	stringToLower(current_image.keywords[j], F_TYPE);
                         if(strstr(current_image.keywords[j], string) != NULL){
                             found = 1;
                         }
@@ -48,7 +54,7 @@ void ui_search_image(user performer) {
                 }
             }
 
-            //Se è nei termini di ricerca, ricorda la sua posizione
+            //Se e' nei termini di ricerca, ricorda la sua posizione
             if(found == 1) {
                 found_list[foundImages] = i;
                 foundImages++;
@@ -263,7 +269,7 @@ void ui_upload(user creator) {
 
 }
 
-int ui_creator_upload_list(user creator, int foundList[]) {
+int ui_creator_upload_list(user creator, int foundList[], int mode) {
 
     image currentImage;
     int i = 0, j = 0;
@@ -298,9 +304,10 @@ int ui_creator_upload_list(user creator, int foundList[]) {
             j++;
 
         }
-        printf("Number of uploaded images: %d\n", i);
-            
-        printf("%d photos, %d vectorials, %d graphics and %d of other type\n", photos, vectorial, graphical, other);
+        if(mode == 1){
+        	printf("Number of uploaded images: %d\n", i);
+        	printf("%d photos, %d vectorials, %d graphics and %d of other type\n", photos, vectorial, graphical, other);
+        }
 
         fclose(fileptr);
     }
@@ -318,7 +325,7 @@ void ui_edit_image(user creator) {
     FILE *fileptr;
     fileptr = fopen("images.dat", "r+b");
     
-    images_n = ui_creator_upload_list(creator, found_list);
+    images_n = ui_creator_upload_list(creator, found_list, 0);
 
     while(choice > images_n) {
         puts("Select the image you want to edit. 0 to cancel:\n");
@@ -370,7 +377,7 @@ void ui_delete_image(user creator){
     int images_n;
     int choice = INT_MAX;
 
-    images_n = ui_creator_upload_list(creator, found_list);
+    images_n = ui_creator_upload_list(creator, found_list, 0);
 
     while(choice > images_n) {
         puts("Select the image you want to delete. 0 to cancel:\n");

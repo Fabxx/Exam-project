@@ -24,7 +24,7 @@ char* getCurrentTime(){
 int clear_input_error(char string[]){
     //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
     //Ritorna 0 se ha avuto successo
-    //Ritorna 1 se non è stata trovata nessuna nuova linea e pulisce il buffer input.
+    //Ritorna 1 se non e' stata trovata nessuna nuova linea e pulisce il buffer input.
     int result = 0;
     char* charptr;
 
@@ -257,4 +257,27 @@ void sortDownloads(image foundList[], int size){
         }
     }
     
+}
+
+void stringToLower(char* original, int size){
+	/*
+	char* resultPoint, *changed, *reading;
+
+	resultPoint = (char*) calloc(size, sizeof(char));
+	changed = resultPoint;
+	reading = original;
+
+	while(reading){
+		*changed = (char) tolower(*reading);
+		changed++;
+		reading++;
+	}
+
+	return resultPoint;
+	*/
+	int i;
+
+	for (i = 0; original[i] != '\0'; i++){
+		original[i] = (char)tolower(original[i]);
+	}
 }

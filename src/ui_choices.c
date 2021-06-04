@@ -91,7 +91,7 @@ void ui_choices_creator() {
                 break;
             }
             case 2: {
-                ui_creator_upload_list(currentUser, found_images);
+                ui_creator_upload_list(currentUser, found_images, 1);
                 break;
             }
             case 3: {

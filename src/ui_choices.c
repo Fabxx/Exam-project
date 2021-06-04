@@ -45,7 +45,7 @@ void ui_choices() {
 void ui_choices_user() {
 
     user currentUser;
-    int decision;
+    int decision = 0;
 
     getUserData(&currentUser, 0);
 

@@ -4,11 +4,13 @@
  * @brief Libreria per la gestione delle immagini:
  *  
  *        -ImageFileInit inizializza il file per la memorizzazione delle immagini
+ * 
  *        -writeImage scrive i dati delle immagini all'interno del file
  *        -nextImage utilizzato per ricercare l'immagine successiva nel file.
  *        -ImageCompare effettua un confronto tra gli attributi inseriti e gli attributi esistenti nel file.
  *        -removeImage permette di rimuovere un'immagine dal file.
  *        -ui_edit_image_element permette di modificare i parametri dell'immagine caricata.
+ * 
  *        -ShowImage permette di mostrare un'immagine dopo la ricerca.
  *        -DownloadImage permette di scaricare un'immagine dal file.
  *        -addImageVote permette di aggiungere un voto su un'immagine specifica e 
@@ -28,6 +30,7 @@
 #include "libraries.h"
 #include "struct.h"
 
+char* getCurrentTime();
 int clear_input_error(char[]);
 
 int imageFileInit();

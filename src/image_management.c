@@ -1,6 +1,25 @@
 
 #include "../include/libraries.h"
 #include "../include/struct.h"
+#include <time.h>
+
+char* getCurrentTime(){
+    char* result;
+    time_t currentTime;
+    struct tm *currentTimestamp;
+
+    currentTime = time(NULL);
+    result = (char*)calloc(20, sizeof(char));
+    currentTimestamp = localtime(&currentTime);
+
+    sprintf(result, "[%d/%d/%d %d:%d]", currentTimestamp->tm_year + 1900,
+                                        currentTimestamp->tm_mon + 1,
+                                        currentTimestamp->tm_mday,
+                                        currentTimestamp->tm_hour,
+                                        currentTimestamp->tm_min);
+
+    return result;
+} 
 
 int clear_input_error(char string[]){
     //Rimozione del carattere di nuova linea dopo l'input utente ("\n")
@@ -28,20 +47,23 @@ int imageFileInit(){
 
     if(images != NULL){
         success = 1;
+        fclose(images);
     }
-    fclose(images);
 
     return success;
 }
 
 void writeImage(image newImage, FILE* dest, user performer){
     FILE* log;
+    char* time;
 
     fwrite(&newImage, sizeof(image), 1, dest);
 
     log = fopen("events.log","a");
-    fprintf(log, "%s (%s) uploaded \"%s\"\n", performer.username, performer.job, newImage.title);
+    time = getCurrentTime();
+    fprintf(log, "%s %s (%s) uploaded \"%s\"\n", time, performer.username, performer.job, newImage.title);
     fclose(log);
+    free(time);
 }
 
 image nextImage(FILE* source){
@@ -90,6 +112,8 @@ void removeImage(int position, user performer){
     FILE* filetmp;
     FILE* log;
 
+    char* time;
+
     int i = 0;
 
     fileptr = fopen("images.dat","r+b");
@@ -123,9 +147,11 @@ void removeImage(int position, user performer){
     remove("temp");
 
     log = fopen("events.log","a");
-    fprintf(log, "%s (%s) deleted \"%s\"\n", performer.username, performer.job, deletedImage.title);
+    time = getCurrentTime();
+    fprintf(log, "%s %s (%s) deleted \"%s\"\n", time, performer.username, performer.job, deletedImage.title);
     printf("%s has been deleted\n", deletedImage.title);
     fclose(log);
+    free(time);
 }
 
 void showImage(image source){
@@ -149,6 +175,7 @@ void downloadImage(image toDownload, int position, FILE* dest, user performer) {
     //TODO aggiungere timestamp accanto agli eventi. se abbiamo tempo
 
     FILE* log;
+    char* time;
     
     toDownload.downloads++;
     printf("Downloaded %s\n",toDownload.file_name);
@@ -157,13 +184,16 @@ void downloadImage(image toDownload, int position, FILE* dest, user performer) {
     fwrite(&toDownload, sizeof(image), 1, dest);
 
     log = fopen("events.log","a");
-    fprintf(log, "%s (%s) downloaded \"%s\" By %s\n", performer.username, performer.job, toDownload.title, toDownload.author);
+    time = getCurrentTime();
+    fprintf(log, "%s %s (%s) downloaded \"%s\" By %s\n", time, performer.username, performer.job, toDownload.title, toDownload.author);
     fclose(log);
+    free(time);
 }
 
 void addImageVote(image current_image, float image_vote, int img_position ,FILE* images, user performer){
 
     FILE* log;
+    char* time;
 
     /*
     To each the exact parameter we want to edit, we need to get the initial size of the image
@@ -181,8 +211,10 @@ void addImageVote(image current_image, float image_vote, int img_position ,FILE*
     fwrite(&current_image.num_votes, sizeof(int), 1, images);
     
     log = fopen("events.log","a");
-    fprintf(log, "%s (%s) voted \"%s\" By %s %.1f/5\n", performer.username, performer.job, current_image.title, current_image.author, image_vote);
+    time = getCurrentTime();
+    fprintf(log, "%s %s (%s) voted \"%s\" By %s %.1f/5\n", time, performer.username, performer.job, current_image.title, current_image.author, image_vote);
     fclose(log);
+    free(time);
 
 }
 

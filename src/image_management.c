@@ -1,7 +1,7 @@
 
 #include "../include/libraries.h"
 #include "../include/struct.h"
-#include <time.h>
+
 
 char* getCurrentTime(){
     char* result;

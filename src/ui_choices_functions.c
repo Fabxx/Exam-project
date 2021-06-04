@@ -393,7 +393,7 @@ void ui_delete_image(user creator){
 void ui_print_logs(){
     FILE* log;
     char* logString;
-
+    //stampa massimo 150 righe nel log.
     logString = (char*)calloc(150, sizeof(char));
     log = fopen("events.log", "r");
 

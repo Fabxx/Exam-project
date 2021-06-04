@@ -38,6 +38,7 @@ void ui_search_image(user performer) {
             found = 1;
             if(strstr(current_image.title, string) == NULL){
                 if(strstr(current_image.author, string) == NULL){
+                    if(strstr(current_image.file_type, string) == NULL)
                     found = 0;
                     for(j = 0; j < KEYS && found == 0; j++){
                         if(strstr(current_image.keywords[j], string) != NULL){
@@ -270,7 +271,7 @@ int ui_creator_upload_list(user creator, int foundList[]) {
                 foundList[i] = j;
                 i++;
 
-                printf("%d): %s (%s), %s [Downloaded %d time/s, rated %.2f (%d)]\n", i+1, currentImage.title, currentImage.file_name, currentImage.file_type, currentImage.downloads, currentImage.vote, currentImage.num_votes);
+                printf("%d): %s (%s), %s [Downloaded %d time/s, rated %.2f (%d)]\n", i, currentImage.title, currentImage.file_name, currentImage.file_type, currentImage.downloads, currentImage.vote, currentImage.num_votes);
 
                 if(strcmp(currentImage.file_type, "photo") == 0) {
                 photos++;

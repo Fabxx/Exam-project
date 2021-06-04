@@ -9,7 +9,7 @@ void getUserData(user *structPtr, int type) {
             int i;
             
             do{
-                printf("Insert nickname, max %d lenght:", ID_LENGHT);
+                printf("Insert nickname, max %d lenght: ", ID_LENGHT);
                 fgets(structPtr->username, ID_LENGHT, stdin);
                 i = clear_input_error(structPtr->username);
             }while(i != 0);

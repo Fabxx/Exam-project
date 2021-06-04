@@ -174,7 +174,7 @@ void addImageVote(image current_image, float image_vote, int img_position ,FILE*
     fseek(images, sizeof(image) * img_position + VOTE_POS, SEEK_SET);
   
     current_image.vote = ((current_image.vote * current_image.num_votes) + image_vote) / (current_image.num_votes + 1);
-    printf("**%f**",current_image.vote);
+    printf("This image is now rated %.2f/5",current_image.vote);
     current_image.num_votes++;
 
     fwrite(&current_image.vote, sizeof(float), 1, images);

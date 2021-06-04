@@ -259,22 +259,7 @@ void sortDownloads(image foundList[], int size){
     
 }
 
-void stringToLower(char* original, int size){
-	/*
-	char* resultPoint, *changed, *reading;
-
-	resultPoint = (char*) calloc(size, sizeof(char));
-	changed = resultPoint;
-	reading = original;
-
-	while(reading){
-		*changed = (char) tolower(*reading);
-		changed++;
-		reading++;
-	}
-
-	return resultPoint;
-	*/
+void stringToLower(char* original){
 	int i;
 
 	for (i = 0; original[i] != '\0'; i++){

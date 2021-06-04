@@ -26,7 +26,8 @@ void ui_mode_selection() {
     puts("Select the mode you want to use\n"
          "1)User\n"
          "2)Creator\n"
-         "3)Exit program\n");
+         "3)Print system events\n"
+         "4)Exit program\n");
 }
 
 void ui_user() {

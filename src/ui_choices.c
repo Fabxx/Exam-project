@@ -23,7 +23,7 @@ void ui_choices() {
 
     int choice = 0;
 
-    while(choice != 3) {
+    while(choice != 4) {
 
         ui_mode_selection();
         scanf("%d", &choice);
@@ -36,6 +36,10 @@ void ui_choices() {
             }
             case 2: {
                 ui_choices_creator();
+                break;
+            }
+            case 3: {
+                ui_print_logs();
                 break;
             }
         }

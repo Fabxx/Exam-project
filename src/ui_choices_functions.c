@@ -367,3 +367,28 @@ void ui_delete_image(user creator){
         }
     }
 }
+
+void ui_print_logs(){
+    FILE* log;
+    char* logString;
+
+    logString = (char*)calloc(150, sizeof(char));
+    log = fopen("events.log", "r");
+
+    if(log != NULL){
+        ui_simple_divider();
+        printf("Printing...\n");
+        while(!feof(log)){
+            fgets(logString, 150, log);
+            if(!feof(log)){
+                puts(logString);
+            }
+        }
+        fclose(log);
+        printf("Done printing\n");
+    }else{
+        printf("Error displaying events.txt\n");
+    }
+
+    free(logString);
+}

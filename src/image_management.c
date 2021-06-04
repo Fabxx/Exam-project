@@ -12,7 +12,7 @@ char* getCurrentTime(){
     result = (char*)calloc(20, sizeof(char));
     currentTimestamp = localtime(&currentTime);
 
-    sprintf(result, "[%d/%d/%d %d:%d]", currentTimestamp->tm_year + 1900,
+    sprintf(result, "[%4d/%2d/%2d - %2d:%2d]", currentTimestamp->tm_year + 1900,
                                         currentTimestamp->tm_mon + 1,
                                         currentTimestamp->tm_mday,
                                         currentTimestamp->tm_hour,

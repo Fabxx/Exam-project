@@ -208,7 +208,6 @@ void ui_upload(user creator) {
                 break;
             }
         }
-        fclose(images);
     }
     
     //Inserimento Nome
@@ -271,33 +270,27 @@ int ui_creator_upload_list(user creator, int foundList[]) {
                 foundList[i] = j;
                 i++;
 
-                printf("%d) Title:%s\t"
-                "File type:%s\t"
-                "File name:%s\t"
-                "Number of Downloads:%d\t"
-                "Author:%s \t"
-                "NUmber of votes:%d \n", i, currentImage.title, currentImage.file_type,
-                                    currentImage.file_name, currentImage.downloads, currentImage.author, currentImage.num_votes);
+                printf("%d): %s (%s), %s [Downloaded %d time/s, rated %.2f (%d)]\n", i+1, currentImage.title, currentImage.file_name, currentImage.file_type, currentImage.downloads, currentImage.vote, currentImage.num_votes);
+
+                if(strcmp(currentImage.file_type, "photo") == 0) {
+                photos++;
+                } else if (strcmp(currentImage.file_type, "vectorial") == 0)
+                {
+                vectorial++;
+                } else if (strcmp(currentImage.file_type, "graphical") == 0)
+                {
+                graphical++;
+                } else
+                {
+                other++;
+                }
             } 
             j++;
 
         }
-            printf("Number of uploaded images: %d\n", i);
+        printf("Number of uploaded images: %d\n", i);
             
-            if(strcmp(currentImage.file_type, "photo") == 0) {
-                photos++;
-            } else if (strcmp(currentImage.file_type, "vectorial") == 0)
-            {
-                vectorial++;
-            } else if (strcmp(currentImage.file_type, "graphical") == 0)
-            {
-                graphical++;
-            } else
-            {
-                other++;
-            }
-            
-            printf("photo: %d\n vector: %d\n graphics: %d\n other: %d\n", photos, vectorial, graphical, other );
+        printf("%d photos, %d vectorials, %d graphics and %d of other type\n", photos, vectorial, graphical, other);
     }
     fclose(fileptr);
     return i;

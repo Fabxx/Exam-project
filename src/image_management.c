@@ -96,7 +96,9 @@ void removeImage(int position, user performer){
     filetmp = fopen("temp","w+b");
 
     while(!feof(fileptr)) {
+        //Leggi una immagine
         fread(&currentImage, sizeof(image), 1, fileptr);
+        //NON e' l'immagine che vogliamo eliminare?
         if(i != position && !feof(fileptr)){
             fwrite(&currentImage, sizeof(image), 1, filetmp);
         }else if(i == position){
@@ -122,13 +124,14 @@ void removeImage(int position, user performer){
 
     log = fopen("events.log","a");
     fprintf(log, "%s (%s) deleted \"%s\"\n", performer.username, performer.job, deletedImage.title);
+    printf("%s has been deleted\n", deletedImage.title);
     fclose(log);
 }
 
 void showImage(image source){
     int i;
 
-    printf("Title: %s (%s) <%s> - By %s\nKeywords: ", source.title, source.file_name, source.file_type, source.author);
+    printf("Title: %s (%s), %s - By %s\nKeywords: ", source.title, source.file_name, source.file_type, source.author);
     for(i = 0; i < KEYS; i++){
         if(strcmp(source.keywords[i], "") != 0){
             printf("%s - ",source.keywords[i]);

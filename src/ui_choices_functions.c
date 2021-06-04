@@ -36,17 +36,17 @@ void ui_search_image(user performer) {
         current_image = nextImage(images);
         if(!feof(images)){
             //Controlla se e' nei termini di ricerca
-        	stringToLower(string, TITLE_SIZE);
+        	stringToLower(string);
             found = 1;
-            stringToLower(current_image.title, TITLE_SIZE);
+            stringToLower(current_image.title);
             if(strstr(current_image.title, string) == NULL){
-            	stringToLower(current_image.author, ID_LENGHT);
+            	stringToLower(current_image.author);
                 if(strstr(current_image.author, string) == NULL){
-                	stringToLower(current_image.file_type, F_TYPE);
+                	stringToLower(current_image.file_type);
                     if(strstr(current_image.file_type, string) == NULL)
                     found = 0;
                     for(j = 0; j < KEYS && found == 0; j++){
-                    	stringToLower(current_image.keywords[j], F_TYPE);
+                    	stringToLower(current_image.keywords[j]);
                         if(strstr(current_image.keywords[j], string) != NULL){
                             found = 1;
                         }

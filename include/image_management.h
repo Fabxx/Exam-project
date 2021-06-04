@@ -16,6 +16,8 @@
  *        -addImageVote permette di aggiungere un voto su un'immagine specifica e 
  *         ricalcolarne la media.
  *        -sortDownloads ordina la lista delle immagini in base al numero di download di esse.
+ *        -Stringtolower permette durante la ricerca, di convertire i caratteri maiuscoli in minuscoli
+ *         in modo tale da avere comunque un riscontro positivo nella ricerca se l'elemento esiste.
  *
  * @version 0.1
  * @date 2021-05-15

@@ -151,18 +151,25 @@ void ui_most_downloaded() {
                 }
             }
         }
+        fclose(fileptr);
     }
 
+    ui_simple_divider();
     printf("10 most downloaded images:\n");
-        for (j = 0; j < i; j++) {
+    for (j = 0; j < i; j++) {
 
-        printf("Title:%s\t"
-            "File type:%s\t"
-            "File name:%s\t"
-            "Number of Downloads:%d\n", foundList[j].title, foundList[j].file_type,
-                                    foundList[j].file_name, foundList[j].downloads);
+        printf("%d): %s (%s), %s [Downloaded %d time/s, rated %.2f (%d)]\n", j+1, 
+                                                                            foundList[j].title,
+                                                                            foundList[j].file_name,
+                                                                            foundList[j].file_type,
+                                                                            foundList[j].downloads,
+                                                                            foundList[j].vote,
+                                                                            foundList[j].num_votes);
+
+
     }
-    fclose(fileptr);
+    printf("End of the list\n");
+    
 
 }
         
@@ -292,8 +299,10 @@ int ui_creator_upload_list(user creator, int foundList[]) {
         printf("Number of uploaded images: %d\n", i);
             
         printf("%d photos, %d vectorials, %d graphics and %d of other type\n", photos, vectorial, graphical, other);
+
+        fclose(fileptr);
     }
-    fclose(fileptr);
+    
     return i;
 }
 

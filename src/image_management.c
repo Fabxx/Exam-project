@@ -172,7 +172,7 @@ void showImage(image source){
 }
 
 void downloadImage(image toDownload, int position, FILE* dest, user performer) {
-    //TODO aggiungere timestamp accanto agli eventi. se abbiamo tempo
+
 
     FILE* log;
     char* time;

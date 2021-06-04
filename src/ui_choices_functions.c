@@ -82,11 +82,12 @@ void ui_search_image(user performer) {
             current_image = nextImage(images);
 
             //Visualizza l'immagine trovata
+            ui_simple_divider();
             showImage(current_image);
 
             decision = 0;
             do{
-                printf("Choose an action\n1) Download\n2) Rate\n0) No action\n");
+                printf("Choose an action\n1) Download\n2) Rate\n0) No action\n\n");
                 scanf("%d",&decision);
                 fflush(stdin);
 
@@ -101,7 +102,7 @@ void ui_search_image(user performer) {
                         //Valutazione
                         user_vote = 0;
                         do{
-                            puts("Insert the vote 1 to 5, put 0 to leave empty\n");
+                            printf("Insert the vote 1 to 5, put 0 to leave empty: ");
                             scanf("%f", &user_vote);
                             fflush(stdin);
 
@@ -158,9 +159,10 @@ void ui_most_downloaded() {
     printf("10 most downloaded images:\n");
     for (j = 0; j < i; j++) {
 
-        printf("%d): %s (%s), %s [Downloaded %d time/s, rated %.2f (%d)]\n", j+1, 
+        printf("%d): %s (%s) By %s, %s [Downloaded %d time/s, rated %.2f (%d)]\n", j+1,
                                                                             foundList[j].title,
                                                                             foundList[j].file_name,
+																			foundList[j].author,
                                                                             foundList[j].file_type,
                                                                             foundList[j].downloads,
                                                                             foundList[j].vote,
@@ -221,7 +223,7 @@ void ui_upload(user creator) {
     //Inserimento Nome
     do{
         ui_simple_divider();
-        puts("Insert the file name: ");
+        puts("Insert the file name (if applicable, the extention too): ");
         fgets(new_image.file_name, NAME_SIZE, stdin);
         badInput = clear_input_error(new_image.file_name);
     }while(badInput);
@@ -235,7 +237,7 @@ void ui_upload(user creator) {
     for(i = 0; i < KEYS; i++){
         do{
             ui_simple_divider();
-            puts("Insert a keyword, leave blank to continue: ");
+            puts("Insert a new keyword, leave blank to stop adding: ");
             fgets(new_image.keywords[i], KEY_LENGHT, stdin);
 
             badInput = clear_input_error(new_image.keywords[i]);
@@ -331,16 +333,20 @@ void ui_edit_image(user creator) {
             fseek(fileptr, sizeof(image) * (found_list[choice - 1]), SEEK_SET);
 
             if(strcmp(creator.username, current_image.author) == 0){
+            	ui_simple_divider();
                 ui_edit_image_element("Image title (Leave blank for no change) ", current_image.title, TITLE_SIZE);
                 fwrite(current_image.title, TITLE_SIZE, 1,  fileptr);
 
+                ui_simple_divider();
                 ui_edit_image_element("Image format (Leave blank for no change) ", current_image.file_type, F_TYPE);
                 fwrite(current_image.file_type, F_TYPE, 1,  fileptr);
 
+                ui_simple_divider();
                 ui_edit_image_element("File name (Leave blank for no change) ", current_image.file_name, NAME_SIZE);
                 fwrite(current_image.file_name, NAME_SIZE, 1,  fileptr);
 
                 for(i = 0; i < KEYS; i++) {
+                	ui_simple_divider();
                     ui_edit_image_element("Insert a keyword (Leave blank to stop editing) ", current_image.keywords[i], KEY_LENGHT);
                     if(strcmp(current_image.keywords[i], "") == 0){
                         i = KEYS; //uscita dal for.
@@ -390,7 +396,7 @@ void ui_print_logs(){
         while(!feof(log)){
             fgets(logString, 150, log);
             if(!feof(log)){
-                puts(logString);
+                printf("%s",logString);
             }
         }
         fclose(log);

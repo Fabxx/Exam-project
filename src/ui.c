@@ -35,7 +35,7 @@ void ui_user() {
     ui_menu_divider();
     puts("Select the desired option\n"
          "1)Search for an image\n"
-         "2)View download list\n"
+         "2)View most downloaded images list\n"
          "3)Return to main menu\n");
         
 }

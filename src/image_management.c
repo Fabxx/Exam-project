@@ -233,7 +233,7 @@ void ui_edit_image_element(char* message, char* original_string, int max_size) {
         fgets(temp, max_size, stdin);
         badInput = clear_input_error(temp);
 
-        if(strcmp(temp, "") != 0){
+        if(strcmp(temp, "") != 0 && strlen(temp) < max_size){
             strcpy(original_string, temp);
         }
     }while(badInput);

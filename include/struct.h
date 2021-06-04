@@ -41,7 +41,7 @@ typedef struct {
     char title[TITLE_SIZE];
     char file_type[F_TYPE]; 
     char file_name[NAME_SIZE]; 
-    char keywords[KEY_LENGHT][KEYS]; 
+    char keywords[KEYS][KEY_LENGHT];
     float vote;
     int num_votes;
     int downloads;

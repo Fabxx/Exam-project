@@ -9,7 +9,7 @@ char* getCurrentTime(){
     struct tm *currentTimestamp;
 
     currentTime = time(NULL);
-    result = (char*)calloc(20, sizeof(char));
+    result = (char*)calloc(25, sizeof(char));
     currentTimestamp = localtime(&currentTime);
 
     sprintf(result, "[%4d/%2d/%2d - %2d:%2d]", currentTimestamp->tm_year + 1900,
